@@ -11,5 +11,5 @@ React Native
 ## Styles
 TailwindCSS
 
-##API , DB- Controling
+## API , DB- Controling
 Java using Spring Boot
