@@ -1,5 +1,5 @@
 # ⚫️ Enigma is an university OOP project 🎓 . Enigma is a new chat for you and your friends 🦹🏼‍♀️🥷🤶🏻🧛🧑‍⚖️👨‍💼👨‍🏫👩‍💻👨‍💻 New secured chat 🚓
-![Logo](./ReadmePhotos/Logo.png)
+![Logo](./ReadmePhotos/Logo-Wide.png)
 
 ## Database
 Firebase by google
