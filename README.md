@@ -11,4 +11,4 @@ React Native
 TailwindCSS
 
 ## API , DB- Controling
-Java using Spring Boot.
+Java using Spring Boot
