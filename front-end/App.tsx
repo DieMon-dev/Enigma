@@ -1,11 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import { StyleSheet, View} from 'react-native';
+import WellcomePage from './components/pages/WellcomePage';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Enigma!</Text>
-      <StatusBar style="auto" />
+      <WellcomePage/>
     </View>
   );
 }
@@ -13,7 +13,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'blue',
+    backgroundColor: 'white',
     Opacity: '0.1',
     alignItems: 'center',
     justifyContent: 'center',
