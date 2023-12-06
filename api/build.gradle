@@ -25,9 +25,11 @@ dependencies {
 	implementation 'com.google.firebase:firebase-admin:6.11.0'
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
+    implementation 'org.jetbrains:annotations:24.0.0'
+    compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compileOnly 'com.google.firebase:firebase-admin:1.32.0'
 }
 
 tasks.named('test') {
