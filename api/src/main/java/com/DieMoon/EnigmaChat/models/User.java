@@ -11,7 +11,10 @@ public class User{
     private String userId;
     @Setter
     @Getter
-    private Integer userLogin; //login is phone number
+    private String userLogin; //login is phone number
+    @Getter
+    @Setter
+    private String userPhoneNumber;
     @Setter
     @Getter
     private String userPassword;
@@ -20,5 +23,5 @@ public class User{
     private String userName;
     @Setter
     @Getter
-    private String token;
+    private String userToken;
 }

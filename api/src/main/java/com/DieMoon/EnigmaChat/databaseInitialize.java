@@ -1,30 +1,21 @@
-package com.DieMoon.EnigmaChat;
-
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
-import java.io.FileInputStream;
-
-@Service
-public class databaseInitialize {
-    @PostConstruct
-    public void initialize(){
-        try {
-            FileInputStream serviceAccount =
-                    new FileInputStream("path/to/serviceAccountKey.json");
-
-            FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                    .setDatabaseUrl("https://enigmachat-2024-default-rtdb.europe-west1.firebasedatabase.app")
-                    .build();
-
-            FirebaseApp.initializeApp(options);
-
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-}
+//import com.google.auth.oauth2.GoogleCredentials;
+//import com.google.cloud.firestore.Firestore;
+//
+//import com.google.firebase.FirebaseApp;
+//import com.google.firebase.FirebaseOptions;
+//import com.google.firebase.cloud.FirestoreClient;
+//
+//// Use the application default credentials
+//
+//
+//
+//public class databaseInitialize {
+//    GoogleCredentials credentials = GoogleCredentials.getApplicationDefault();
+//    FirebaseOptions options = new FirebaseOptions.Builder()
+//            .setCredentials(credentials)
+//            .setProjectId("enigmachat-2024")
+//            .build();
+//        FirebaseApp.initializeApp(options);
+//
+//    Firestore db = FirestoreClient.getFirestore();
+//}
