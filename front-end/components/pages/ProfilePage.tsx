@@ -1,7 +1,7 @@
 import React from 'react'
-import { StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import { StyleSheet, Text, View, Button, SafeAreaView, TextInput} from 'react-native';
 
-export default class LoginPage extends React.Component<any, any> {
+export default class ProfilePage extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -10,6 +10,10 @@ export default class LoginPage extends React.Component<any, any> {
     };
   }
 
+  async componentDidMount() {
+    this.setState({text: "GGwp2023"})
+    this.setState({number: 4899999999})
+  }
 
   handleLogin = (number: string) => {
     let new_number = parseInt(number)
@@ -23,7 +27,7 @@ export default class LoginPage extends React.Component<any, any> {
 
   render(){  
     return (
-      <View style={styles.container}>
+      <View>
         <Text>Hi! Welcome to Enigma chat</Text>
         <View>
             <TextInput
@@ -34,26 +38,18 @@ export default class LoginPage extends React.Component<any, any> {
             />
             <TextInput
               onChangeText={this.handlePassword}
-              value={this.state.password}
+              value={this.state.text}
               placeholder="Enter your password please"
             />
-             <Button
+        </View>
+          <Button
               title="Back on Wellcome Page"
               color="#4d2afa"
-              onPress={() => console.log(this.state.number, this.state.password)}
+              onPress={() => console.log('Sign up button pressed')}
           />
-        </View>
       </View>
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    Opacity: '0.1',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 10
-  },
-});
+
   
