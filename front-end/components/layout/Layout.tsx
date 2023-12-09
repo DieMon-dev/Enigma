@@ -4,8 +4,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import WellcomePage from '../pages/WellcomePage';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
+import StarterPage from '../pages/StarterPage';
 
 const Stack = createNativeStackNavigator();
+
 
 export default class Layout extends React.Component {
 
@@ -14,9 +16,14 @@ export default class Layout extends React.Component {
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen
+                    name="Starter"
+                    component={StarterPage}
+                    options={{title: ''}}
+                />
+                <Stack.Screen
                     name="Home"
                     component={WellcomePage}
-                    options={{title: 'Well Come'}}
+                    options={{title: ''}}
                 />
                 <Stack.Screen 
                     name="SingIn" 

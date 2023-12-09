@@ -1,6 +1,13 @@
 import React from 'react'
-import { StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import {Text, View, TextInput} from 'react-native';
+import { styled } from 'nativewind';
+import { LinearGradient } from "expo-linear-gradient";
+import EnigmaMainLogo from '../logo/EnigmaMain';
 
+const StyledView = styled(View)
+const StyledText = styled(Text)
+const StyledTextInput = styled(TextInput)
+const StyledLinearGradient = styled(LinearGradient)
 export default class LoginPage extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -8,6 +15,10 @@ export default class LoginPage extends React.Component<any, any> {
       password: String,
       number: Number,
     };
+    props.navigation.setOptions({
+      headerShown: true,
+      headerTransparent: true,
+    });
   }
 
 
@@ -19,41 +30,38 @@ export default class LoginPage extends React.Component<any, any> {
 
   handlePassword = (password: string) => {
     this.setState({password: password})
+    console.log(this.state.password)
   }
 
   render(){  
     return (
-      <View style={styles.container}>
-        <Text>Hi! Welcome to Enigma chat</Text>
-        <View>
-            <TextInput
+      <StyledLinearGradient className="flex flex-1 w-full h-full items-center justify-center "
+      colors={["#20242c", "#6e7d98" ,"#9ea6b8"]} start={[0.5, 0.01]}>
+        <EnigmaMainLogo></EnigmaMainLogo>
+        <StyledView className="flex flex-col w-full gap-y-2 m-4 p-10  w-72">
+          <StyledView className="items-center justify-center">
+            <StyledText className="text-white">Your phone number</StyledText>
+            <StyledTextInput
+              maxLength={9}
               onChangeText={this.handleLogin}
               value={this.state.number}
-              placeholder="Enter your login please"
-         
-            />
-            <TextInput
+              keyboardType="number-pad"
+              className="border-b-2 border-solid h-8 w-56 bg-slate-500 text-white text-center"
+              />
+          </StyledView>
+          <StyledView className="items-center justify-center">
+            <StyledText className="text-white">Your password</StyledText>
+            <StyledTextInput
+              maxLength={20}
               onChangeText={this.handlePassword}
               value={this.state.password}
-              placeholder="Enter your password please"
+              secureTextEntry={true}
+              className="border-b-2 border-solid h-8 w-56 bg-slate-500 text-white text-center"
             />
-             <Button
-              title="Back on Wellcome Page"
-              color="#4d2afa"
-              onPress={() => console.log(this.state.number, this.state.password)}
-          />
-        </View>
-      </View>
+          </StyledView>
+        </StyledView>
+        <StyledText className="rounded-full bg-[#20242cc7] h-10 w-56 p-1 mb-32 text-white text-xl font-bold text-center" onPress={()=> this.props.navigation.navigate("SingUp")}>Sign in</StyledText>
+      </StyledLinearGradient>
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    Opacity: '0.1',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 10
-  },
-});
-  
