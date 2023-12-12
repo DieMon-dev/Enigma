@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+###API CONFIG DATABASE###
+
+./src/main/resources/serviceAccountKey.json
