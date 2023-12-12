@@ -1,5 +1,5 @@
 # ⚫️ Enigma is an university OOP project 🎓 . Enigma is a new chat for you and your friends 🦹🏼‍♀️🥷🤶🏻🧛🧑‍⚖️👨‍💼👨‍🏫👩‍💻👨‍💻 New secured chat 🚓
-<img src="https://github.com/DieMon-dev/Enigma/blob/develop/ReadmePhotos/Logo-Wide.png" alt="Logo" height="250"/>
+<img src="https://github.com/DieMon-dev/Enigma/blob/develop/ReadmePhotos/Logo-Wide.png" alt="Logo" width = "100%"/>
 
 ## Enigma UI design screenshots
 Main page:
