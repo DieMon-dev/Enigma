@@ -123,11 +123,26 @@ public class UserService {
         return user;
     }
 
-    public boolean checkIfUserExists(String userName) {
+    public boolean checkIfUserExists(String userLogin) {
         //check if user exists while creating user
 
         CollectionReference usersCollection = firestore.collection("users");
-        Query query = usersCollection.whereEqualTo("userName", userName);
+        Query query = usersCollection.whereEqualTo("userLogin", userLogin);
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+
+        try {
+            return !querySnapshot.get().getDocuments().isEmpty();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean checkIfUserPasswordMatches(String userLogin, String userPassword) {
+        //check if user password matches while logging in
+
+        CollectionReference usersCollection = firestore.collection("users");
+        Query query = usersCollection.whereEqualTo("userLogin", userLogin).whereEqualTo("userPassword", userPassword);
         ApiFuture<QuerySnapshot> querySnapshot = query.get();
 
         try {
