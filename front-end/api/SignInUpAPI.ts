@@ -1,35 +1,25 @@
+import GenerationTool from "../utils/idGenerator"
 export default class  EnigmaSignInUpAPI{
 
-    async Login(login: number, password: string): Promise<boolean> {
-       const result = fetch("/Login?" + "userLogin=" + login + "&" + "userPassword="+ password).then(response => {
-               if (!response.ok) {
-                   throw new Error(response.statusText)
-               }
-               return response.json()
-           }).then((value) => {
-            return value;
-        })
-        console.log("In login api class: ", result)
-        return false
+    private url = "https://rare-ways-wave.loca.lt/api/users/check/userLogin/"
+
+    async Login(login: string): Promise<boolean> {
+        const result = fetch(this.url + login.toString()).then(response => {              
+            return response.json()}).then(response => {return response})
+        return result
 
    }
 
-   async Register(login: string, password: string): Promise<boolean>{
-        const result = fetch("getRegister").then(response => {
-           if (!response.ok) {
-               throw new Error(response.statusText)
-           }
-           return response.json().then((value) => {
-               return value;
-           })
-       })
-       var toreturn: number = 0;
-       result.then((resultvalue) =>{
-           setTimeout(()=>{
-               toreturn = resultvalue
-           }, 500)
-       })
-       return true
+   async Register(login: string, password: string, nickname: string): Promise<boolean>{
+    let user_id = new GenerationTool().idGeneration()
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({userId: user_id, userLogin: login, userPassword: password, userName: nickname})
+    };
+    const result = fetch(this.url,  requestOptions).then(response => {              
+        return response.json()}).then(response => {return response})
+    return result
     }
 
 };
