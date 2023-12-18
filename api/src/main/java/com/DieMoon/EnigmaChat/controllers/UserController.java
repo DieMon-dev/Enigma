@@ -34,7 +34,7 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @GetMapping("check/login/{login}")
+    @GetMapping("check/userLogin/{login}")
     public boolean checkIfUserExists(@PathVariable String login) {
         return userService.checkIfUserExists(login);
     }
