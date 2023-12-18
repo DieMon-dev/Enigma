@@ -12,16 +12,16 @@ public class User{
     @Setter
     @Getter
     private String userLogin; //login is phone number
-    @Getter
-    @Setter
-    private String userPhoneNumber;
+    //@Getter
+    //@Setter
+    //private String userPhoneNumber;
     @Setter
     @Getter
     private String userPassword;
     @Setter
     @Getter
     private String userName;
-    @Setter
-    @Getter
-    private String userToken;
+    //@Setter
+    //@Getter
+    //private String userToken;
 }
