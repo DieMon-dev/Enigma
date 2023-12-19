@@ -38,10 +38,16 @@ public class UserController {
     public boolean checkIfUserExists(@PathVariable String login) {
         return userService.checkIfUserExists(login);
     }
+    @GetMapping("check/userPassword/{userLogin}/{userPassword}")
+    public boolean checkIfUserPasswordMatches(@PathVariable String userLogin, @PathVariable String userPassword) {
+        return userService.checkIfUserPasswordMatches(userLogin, userPassword);
+    }
+
     @PostMapping
     public User createUser(@RequestBody User user) {
         return userService.createUser(user);
     }
+
 
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable String id) {
