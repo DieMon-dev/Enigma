@@ -11,12 +11,12 @@ public class User{
     private String userId;
     @Setter
     private String userLogin; //login is phone number
-    @Setter
-    private String userPhoneNumber;
+//    @Setter
+//    private String userPhoneNumber;
     @Setter
     private String userPassword;
     @Setter
     private String userName;
-    @Setter
-    private String userToken;
+//    @Setter
+//    private String userToken;
 }
