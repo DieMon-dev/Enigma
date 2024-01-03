@@ -33,12 +33,11 @@ export default class LoginPage extends React.Component<any, any> {
 
   async loginCheckOut(){
     const element = new EnigmaSignInUpAPI()
-    await element.Login(this.state.number).then(response =>{
+    await element.Login(this.state.number, this.state.password).then(response =>{
       if(response === true){
         alert("Thank you for login in")
       }else{
-        alert("No user found. Please register")
-        this.props.navigation.navigate("SingUp")
+        alert("No user found. Please register. Try again!")
       }
     })
   }

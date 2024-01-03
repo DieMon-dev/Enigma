@@ -39,8 +39,9 @@ export default class RegisterPage extends React.Component<any, any> {
   }
 
   async register(){
+    console.log("RegisterClicked")
     const element = new EnigmaSignInUpAPI()
-    await element.Login(this.state.number).then(response =>{
+    await element.Login_RegisterCheck(this.state.number).then(response =>{
       if(response === true){
         alert("This user is already exist, please login")
         this.props.navigation.navigate("SingIn")
