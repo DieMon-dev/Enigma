@@ -3,20 +3,31 @@ import {Text, View, TextInput} from 'react-native';
 import { styled } from 'nativewind';
 import { LinearGradient } from "expo-linear-gradient";
 import EnigmaMainLogo from '../logo/EnigmaMain';
-import EnigmaSignInUpAPI from '../../api/SignInUpAPI';
+import EnigmaAPI from '../../api/SignInUpAPI';
 
 const StyledView = styled(View)
 const StyledText = styled(Text)
 const StyledTextInput = styled(TextInput)
 const StyledLinearGradient = styled(LinearGradient)
+interface RegisterPageProps {
+  navigation : any
+}
 
-export default class RegisterPage extends React.Component<any, any> {
+interface RegisterPageInterface {
+  navigation : any,
+  password: string,
+  number: string,
+  nickName: string,
+}
+
+export default class RegisterPage extends React.Component<RegisterPageProps, RegisterPageInterface> {
   constructor(props: any) {
     super(props);
     this.state = {
-      password: String,
-      number: String,
-      nickName: String
+      password: "",
+      number: "",
+      nickName: "",
+      navigation: []
     };
     props.navigation.setOptions({
       headerShown: false,
@@ -26,8 +37,7 @@ export default class RegisterPage extends React.Component<any, any> {
 
 
   handleLogin = (number: string) => {
-    let new_number = parseInt(number)
-    this.setState({number: new_number})
+    this.setState({number: number})
   }
 
   handleNickName = (nickName: string) => {
@@ -40,13 +50,14 @@ export default class RegisterPage extends React.Component<any, any> {
 
   async register(){
     console.log("RegisterClicked")
-    const element = new EnigmaSignInUpAPI()
+    const element = new EnigmaAPI()
     await element.Login_RegisterCheck(this.state.number).then(response =>{
       if(response === true){
         alert("This user is already exist, please login")
         this.props.navigation.navigate("SingIn")
       }else{
         let response = element.Register(this.state.number, this.state.password, this.state.nickName)
+        this.props.navigation.navigate("UserPageLayout")
         console.log("Response in RegisterPage", response)
       }
   

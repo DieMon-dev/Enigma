@@ -3,7 +3,6 @@ import {Text, View} from 'react-native';
 import { styled } from 'nativewind';
 import { LinearGradient } from "expo-linear-gradient";
 import EnigmaMainLogo from '../logo/EnigmaMain';
-import StyledComponents from '../styledcolponents/Styled';
 const StyledView = styled(View)
 const StyledText = styled(Text)
 const StyledLinearGradient = styled(LinearGradient)

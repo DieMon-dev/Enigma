@@ -3,18 +3,30 @@ import {Text, View, TextInput} from 'react-native';
 import { styled } from 'nativewind';
 import { LinearGradient } from "expo-linear-gradient";
 import EnigmaMainLogo from '../logo/EnigmaMain';
-import EnigmaSignInUpAPI from '../../api/SignInUpAPI';
+import EnigmaAPI from '../../api/SignInUpAPI';
 
 const StyledView = styled(View)
 const StyledText = styled(Text)
 const StyledTextInput = styled(TextInput)
 const StyledLinearGradient = styled(LinearGradient)
-export default class LoginPage extends React.Component<any, any> {
+
+interface LoginPageProps {
+  navigation : any
+}
+
+interface LoginPageInterface {
+  navigation : any,
+  password: string,
+  number: string
+}
+
+export default class LoginPage extends React.Component<LoginPageProps, LoginPageInterface> {
   constructor(props: any) {
     super(props);
     this.state = {
-      password: String,
-      number: String,
+      password: "",
+      number: "",
+      navigation: []
     };
     props.navigation.setOptions({
       headerShown: false,
@@ -32,10 +44,10 @@ export default class LoginPage extends React.Component<any, any> {
   }
 
   async loginCheckOut(){
-    const element = new EnigmaSignInUpAPI()
+    const element = new EnigmaAPI()
     await element.Login(this.state.number, this.state.password).then(response =>{
       if(response === true){
-        alert("Thank you for login in")
+        this.props.navigation.navigate("UserPageLayout")
       }else{
         alert("No user found. Please register. Try again!")
       }

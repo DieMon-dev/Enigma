@@ -1,9 +1,10 @@
+import userStore from "../stores/user_store"
 import GenerationTool from "../utils/idGenerator"
-export default class  EnigmaSignInUpAPI{
+export default class  EnigmaAPI{
 
-    private url_login = "https://lemon-badgers-heal.loca.lt/api/users/check/userPassword/"
-    private url_login_register = "https://lemon-badgers-heal.loca.lt/api/users/check/userLogin/"
-    private url_password = "https://lemon-badgers-heal.loca.lt/api/users"
+    private url_login = "https://social-breads-notice.loca.lt/api/users/check/userPassword/"
+    private url_login_register = "https://social-breads-notice.loca.lt/api/users/check/userLogin/"
+    private url_password = "https://social-breads-notice.loca.lt/api/users"
 
     async Login(login: string, password: string): Promise<boolean> {
         const result = fetch(this.url_login + login + "/" + password).then(response => {              
@@ -27,7 +28,7 @@ export default class  EnigmaSignInUpAPI{
         body: JSON.stringify({userId: user_id, userLogin: login, userPassword: password, userName: nickname})
     };
     const result = fetch(this.url_password,  requestOptions).then(response => {              
-        return response.json()}).then(response => {return response})
+        return response.json()}).then(response => {userStore.setUser(response.userId, response.userLogin, response.userName); return response})
     return result
     }
 
