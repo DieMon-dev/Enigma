@@ -5,6 +5,7 @@ import WellcomePage from '../pages/WellcomePage';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import StarterPage from '../pages/StarterPage';
+import UserPageLayout from './UserPageLayout';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,22 +19,22 @@ export default class Layout extends React.Component {
                 <Stack.Screen
                     name="Starter"
                     component={StarterPage}
-                    options={{title: ''}}
                 />
                 <Stack.Screen
                     name="Home"
                     component={WellcomePage}
-                    options={{title: ''}}
                 />
                 <Stack.Screen 
                     name="SingIn" 
                     component={LoginPage} 
-                    options={{title: 'Sign In'}}
                 />
                 <Stack.Screen 
                     name="SingUp" 
                     component={RegisterPage} 
-                    options={{title: 'Sign Up'}}
+                />
+                <Stack.Screen 
+                    name="UserPageLayout" 
+                    component={UserPageLayout} 
                 />
             </Stack.Navigator>
         </NavigationContainer>
