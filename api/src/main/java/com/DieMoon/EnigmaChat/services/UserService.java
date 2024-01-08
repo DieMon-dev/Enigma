@@ -157,19 +157,21 @@ public class UserService {
     }
 
 
-    public boolean checkIfUserPasswordMatches(String userLogin, String userPassword) {
+    public User checkIfUserPasswordMatches(String userLogin, String userPassword) {
         //check if user password matches while logging in
-
+        User user = null;
         CollectionReference usersCollection = firestore.collection("users");
         Query query = usersCollection.whereEqualTo("userLogin", userLogin).whereEqualTo("userPassword", userPassword);
         ApiFuture<QuerySnapshot> querySnapshot = query.get();
 
         try {
-            return !querySnapshot.get().getDocuments().isEmpty();
+            if (!querySnapshot.get().getDocuments().isEmpty()) {
+                user = querySnapshot.get().getDocuments().get(0).toObject(User.class);
+            }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return false;
+        return user;
     }
 
 
