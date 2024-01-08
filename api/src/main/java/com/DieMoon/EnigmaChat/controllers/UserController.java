@@ -34,12 +34,13 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+
     @GetMapping("check/userLogin/{login}")
     public boolean checkIfUserExists(@PathVariable String login) {
         return userService.checkIfUserExists(login);
     }
     @GetMapping("check/userPassword/{userLogin}/{userPassword}")
-    public boolean checkIfUserPasswordMatches(@PathVariable String userLogin, @PathVariable String userPassword) {
+    public User checkIfUserPasswordMatches(@PathVariable String userLogin, @PathVariable String userPassword) {
         return userService.checkIfUserPasswordMatches(userLogin, userPassword);
     }
 

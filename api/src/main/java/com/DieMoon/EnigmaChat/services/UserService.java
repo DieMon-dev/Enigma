@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.FileInputStream;
+import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -80,9 +83,24 @@ public class UserService {
         return user;
     }
 
+    public boolean checkIfIdExists(String userId){
+        CollectionReference usersCollection = firestore.collection("users");
+        Query query = usersCollection.whereEqualTo("userId", userId);
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+
+        try {
+            return !querySnapshot.get().getDocuments().isEmpty();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public User createUser(User user) {
         // Create a new user in Firestore
-        ApiFuture<WriteResult> result = firestore.collection("users").document(user.getUserId()).set(user);
+        String userId = IdGeneration.generateUserId();
+        user.setUserId(userId);
+        ApiFuture<WriteResult> result = firestore.collection("users").document(userId).set(user);
 
         try {
             System.out.println("Update time : " + result.get().getUpdateTime());
@@ -138,18 +156,23 @@ public class UserService {
         return false;
     }
 
-    public boolean checkIfUserPasswordMatches(String userLogin, String userPassword) {
-        //check if user password matches while logging in
 
+    public User checkIfUserPasswordMatches(String userLogin, String userPassword) {
+        //check if user password matches while logging in
+        User user = null;
         CollectionReference usersCollection = firestore.collection("users");
         Query query = usersCollection.whereEqualTo("userLogin", userLogin).whereEqualTo("userPassword", userPassword);
         ApiFuture<QuerySnapshot> querySnapshot = query.get();
 
         try {
-            return !querySnapshot.get().getDocuments().isEmpty();
+            if (!querySnapshot.get().getDocuments().isEmpty()) {
+                user = querySnapshot.get().getDocuments().get(0).toObject(User.class);
+            }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return false;
+        return user;
     }
+
+
 }

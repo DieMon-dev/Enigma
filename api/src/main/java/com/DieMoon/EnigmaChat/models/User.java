@@ -11,16 +11,8 @@ public class User{
     private String userId;
     @Setter
     private String userLogin; //login is phone number
-
-    //@Getter
-    //@Setter
-    //private String userPhoneNumber;
     @Setter
     private String userPassword;
     @Setter
     private String userName;
-   //@Setter
-    //@Getter
-    //private String userToken;
-
 }
