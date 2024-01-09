@@ -1,11 +1,11 @@
 import React from 'react'
-import {Text, View} from 'react-native';
+import {Text, View, Button} from 'react-native';
 import { styled } from 'nativewind';
 
 const StyledView = styled(View)
 const StyledText = styled(Text)
 
-export default class EnigmaMainLogo extends React.Component<any, any>{
+export default class Trudno extends React.Component<any, any>{
   constructor(props: any) {
     super(props);
   }
@@ -23,8 +23,11 @@ export default class EnigmaMainLogo extends React.Component<any, any>{
             </StyledView>
         </StyledView>
         <StyledView className="absolute">
-            <StyledText className="text-white text-7xl font-thin tracking-widest">
-                <StyledText className="text-white text-7xl font-extrabold tracking-widest">E</StyledText>NIGMA
+            <StyledText className="text-white text-5xl font-thin tracking-widest">
+                <StyledText className="text-white text-5xl font-extrabold tracking-widest">T</StyledText>RUDNO
+            </StyledText>
+            <StyledText className="text-white text-xl font-bold tracking-widest">
+               PROSZE PANSTWA
             </StyledText>
         </StyledView>
     </StyledView> 

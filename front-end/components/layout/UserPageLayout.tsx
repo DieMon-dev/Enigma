@@ -1,13 +1,14 @@
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import EnigmaMainLogo from '../logo/EnigmaMain';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import {faCommentDots, faPhoneVolume, faUser, faGear} from '@fortawesome/free-solid-svg-icons'
 import UserMainPage from '../pages/UserMainPage';
 import { styled } from 'nativewind';
-import StarterPage from '../pages/StarterPage';
+import TrudnoPage from '../pages/TrudnoPage';
+import { Settings } from 'react-native';
+import SettingsPage from '../pages/Settings';
 
 const StyledIcon = styled(FontAwesomeIcon)
 const Tab = createMaterialBottomTabNavigator();
@@ -51,7 +52,7 @@ export default class UserPageLayout extends React.Component<UserPageLayoutProps,
                 />
                 <Tab.Screen
                     name="Contacts"
-                    component={StarterPage}
+                    component={TrudnoPage}
                     options={{
                         tabBarIcon: () => {
                           return (
@@ -62,7 +63,7 @@ export default class UserPageLayout extends React.Component<UserPageLayoutProps,
                 />
                 <Tab.Screen 
                     name="Calls" 
-                    component={StarterPage} 
+                    component={TrudnoPage} 
                     options={{
                         tabBarIcon: () => {
                           return (
@@ -73,7 +74,7 @@ export default class UserPageLayout extends React.Component<UserPageLayoutProps,
                 />
                 <Tab.Screen 
                     name="Settings" 
-                    component={StarterPage}
+                    component={SettingsPage}
                     options={{
                         tabBarIcon: () => {
                           return (

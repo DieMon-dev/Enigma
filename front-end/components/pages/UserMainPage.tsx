@@ -1,11 +1,9 @@
 import React from 'react'
-import {Text, View, TextInput} from 'react-native';
+import {Text, View, TextInput,  BackHandler} from 'react-native';
 import { styled } from 'nativewind';
 import { LinearGradient } from "expo-linear-gradient";
 import EnigmaPageLogo from '../logo/EnigmaPage';
 
-const StyledView = styled(View)
-const StyledText = styled(Text)
 const StyledLinearGradient = styled(LinearGradient)
 
 interface UserMainPageProps {
@@ -26,8 +24,13 @@ export default class UserMainPage extends React.Component<UserMainPageProps, Use
     });
   }
 
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+  }
 
-
+  handleBackButton() {
+    return true;
+  }
 
   render(){  
     return (
