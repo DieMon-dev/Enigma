@@ -174,5 +174,15 @@ public class UserService {
         return user;
     }
 
+    public User updateUserInfo(User user) {
+        ApiFuture<WriteResult> writeResult = firestore.collection("users").document(user.getUserId()).set(user);
+
+        try {
+            System.out.println("Update time : " + writeResult.get().getUpdateTime());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
 
 }
