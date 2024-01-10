@@ -43,6 +43,10 @@ public class UserController {
     public User checkIfUserPasswordMatches(@PathVariable String userLogin, @PathVariable String userPassword) {
         return userService.checkIfUserPasswordMatches(userLogin, userPassword);
     }
+    @GetMapping("check/oldPwd/{userId}/{userPassword}")
+    public boolean checkIfOldPwdMatches(@PathVariable String userId, @PathVariable String userPassword) {
+        return userService.checkIfOldPwdMatches(userId, userPassword);
+    }
 
     @PostMapping
     public User createUser(@RequestBody User user) {
