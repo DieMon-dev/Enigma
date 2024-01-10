@@ -188,7 +188,9 @@ public class UserService {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return user.getUserPassword() == userPassword;
+        System.out.println(user.getUserPassword());
+        System.out.println(userPassword);
+        return user.getUserPassword().equals(userPassword);
     }
 
     public User updateUserInfo(User user) {
