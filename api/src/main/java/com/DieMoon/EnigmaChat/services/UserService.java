@@ -23,7 +23,7 @@ import com.google.cloud.firestore.Firestore;
 @Service
 public class UserService {
     //Initialize Firestore database
-    private Firestore firestore;
+    public Firestore firestore;
     @PostConstruct
         public void initialize() {
         try {
@@ -172,6 +172,23 @@ public class UserService {
             e.printStackTrace();
         }
         return user;
+    }
+
+    public boolean checkIfOldPwdMatches(String userId, String userPassword) {
+        //check if old password matches while changing password, if old password matches, then return true
+        User user = null;
+        CollectionReference usersCollection = firestore.collection("users");
+        Query query = usersCollection.whereEqualTo("userId", userId);
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+
+        try {
+            if (!querySnapshot.get().getDocuments().isEmpty()) {
+                user = querySnapshot.get().getDocuments().get(0).toObject(User.class);
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return user.getUserPassword() == userPassword;
     }
 
     public User updateUserInfo(User user) {
