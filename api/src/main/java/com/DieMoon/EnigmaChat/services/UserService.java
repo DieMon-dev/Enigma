@@ -7,6 +7,7 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -193,7 +194,20 @@ public class UserService {
         return user.getUserPassword().equals(userPassword);
     }
 
+    @SneakyThrows
     public User updateUserInfo(User user) {
+        //getting old user data
+        User oldUser = null;
+        CollectionReference usersCollection = firestore.collection("users");
+        Query query = usersCollection.whereEqualTo("userId", user.getUserId());
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+        oldUser = querySnapshot.get().getDocuments().get(0).toObject(User.class);
+
+        //checking for password empty field and setting old value if empty
+        if (user.getUserPassword().equals("")){
+            user.setUserPassword(oldUser.getUserPassword());
+        }
+
         ApiFuture<WriteResult> writeResult = firestore.collection("users").document(user.getUserId()).set(user);
 
         try {
