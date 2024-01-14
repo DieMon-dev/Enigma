@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {View} from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
@@ -7,10 +7,11 @@ import {faCommentDots, faPhoneVolume, faUser, faGear} from '@fortawesome/free-so
 import UserMainPage from '../pages/UserMainPage';
 import { styled } from 'nativewind';
 import TrudnoPage from '../pages/TrudnoPage';
-import { Settings } from 'react-native';
 import SettingsPage from '../pages/Settings';
 
-const StyledIcon = styled(FontAwesomeIcon)
+const StyledIcon = styled(FontAwesomeIcon);
+const StyledView = styled(View);
+
 const Tab = createMaterialBottomTabNavigator();
 
 interface UserPageLayoutProps {
@@ -32,19 +33,18 @@ export default class UserPageLayout extends React.Component<UserPageLayoutProps,
 
     render(){
         return (
-        <NavigationContainer independent={true}>
             <Tab.Navigator
                  activeColor="#FFFFFF"
                  inactiveColor="#797C7B"
-                 barStyle={{ backgroundColor: '#242E2E', paddingBottom: 10}}
+                 barStyle={{ backgroundColor: '#242E2E', paddingBottom: 2}}
             >
-                <Tab.Screen
+                 <Tab.Screen
                     name="Chats"
                     component={UserMainPage}
                     options={{
                         tabBarIcon: () => {
                           return (
-                            <StyledIcon className="color-white w-96 h-96" icon={faCommentDots as IconProp} />
+                              <StyledIcon className="color-white w-96 h-96" icon={faCommentDots as IconProp} />
                           );
                         },
                       }
@@ -84,6 +84,5 @@ export default class UserPageLayout extends React.Component<UserPageLayoutProps,
                       }} 
                 />
             </Tab.Navigator>
-        </NavigationContainer>
   );}
 };
