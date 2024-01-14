@@ -14,7 +14,7 @@ export default class Layout extends React.Component {
 
     render(){
         return (
-        <NavigationContainer>
+        <NavigationContainer independent={true}>
             <Stack.Navigator>
                 <Stack.Screen
                     name="Starter"
@@ -35,6 +35,7 @@ export default class Layout extends React.Component {
                 <Stack.Screen 
                     name="UserPageLayout" 
                     component={UserPageLayout} 
+                    options={{ headerShown: false }}
                 />
             </Stack.Navigator>
         </NavigationContainer>
