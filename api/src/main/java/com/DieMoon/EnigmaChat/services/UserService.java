@@ -2,52 +2,24 @@ package com.DieMoon.EnigmaChat.services;
 
 import com.DieMoon.EnigmaChat.models.User;
 import com.google.api.core.ApiFuture;
-import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.*;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.firebase.cloud.FirestoreClient;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.io.FileInputStream;
-import java.security.SecureRandom;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import com.google.cloud.firestore.Firestore;
-
 @Service
 public class UserService {
-    //Initialize Firestore database
-    public Firestore firestore;
-    @PostConstruct
-        public void initialize() {
-        try {
-            FileInputStream serviceAccount =
-                    new FileInputStream("src/main/resources/serviceAccountKey.json");
+    // Create an instance of databaseInitialize
+    private Firestore firestore;
 
-            FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                    .setDatabaseUrl("https://enigmachat-2024-default-rtdb.europe-west1.firebasedatabase.app")
-                    .build();
-
-            FirebaseApp.initializeApp(options);
-
-            firestore = FirestoreClient.getFirestore();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 
     //functions for the user service
     public List<User> getAllUsers() {
+        firestore = DatabaseInitialize.getInstance().getFirestore();
         List<User> users = new ArrayList<>();
 
         // Get users from Firestore
@@ -67,6 +39,7 @@ public class UserService {
     }
 
     public User getUserById(String id) {
+        firestore = DatabaseInitialize.getInstance().getFirestore();
         // Get a user by ID from Firestore
         User user = null;
 
@@ -85,6 +58,7 @@ public class UserService {
     }
 
     public boolean checkIfIdExists(String userId){
+        firestore = DatabaseInitialize.getInstance().getFirestore();
         CollectionReference usersCollection = firestore.collection("users");
         Query query = usersCollection.whereEqualTo("userId", userId);
         ApiFuture<QuerySnapshot> querySnapshot = query.get();
@@ -98,6 +72,7 @@ public class UserService {
     }
 
     public User createUser(User user) {
+        firestore = DatabaseInitialize.getInstance().getFirestore();
         // Create a new user in Firestore
         String userId = IdGeneration.generateUserId();
         user.setUserId(userId);
@@ -113,6 +88,7 @@ public class UserService {
     }
 
     public void deleteUser(String id) {
+        firestore = DatabaseInitialize.getInstance().getFirestore();
         // Delete a user by ID from Firestore
         ApiFuture<WriteResult> writeResult = firestore.collection("users").document(id).delete();
 
@@ -124,6 +100,7 @@ public class UserService {
     }
 
     public User getUserByUserName(String userName) {
+        firestore = DatabaseInitialize.getInstance().getFirestore();
         //get user by username for in-app search
         User user = null;
 
@@ -143,6 +120,7 @@ public class UserService {
     }
 
     public boolean checkIfUserExists(String userLogin) {
+        firestore = DatabaseInitialize.getInstance().getFirestore();
         //check if user exists while creating user
 
         CollectionReference usersCollection = firestore.collection("users");
@@ -159,6 +137,7 @@ public class UserService {
 
 
     public User checkIfUserPasswordMatches(String userLogin, String userPassword) {
+        firestore = DatabaseInitialize.getInstance().getFirestore();
         //check if user password matches while logging in
         User user = null;
         CollectionReference usersCollection = firestore.collection("users");
@@ -172,10 +151,17 @@ public class UserService {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return user;
+        if (user != null){
+            return user;
+        }
+        else {
+            user.setUserId("Error 404. Not Found");
+            return user;
+        }
     }
 
     public boolean checkIfOldPwdMatches(String userId, String userPassword) {
+        firestore = DatabaseInitialize.getInstance().getFirestore();
         //check if old password matches while changing password, if old password matches, then return true
         User user = null;
         CollectionReference usersCollection = firestore.collection("users");
@@ -196,6 +182,7 @@ public class UserService {
 
     @SneakyThrows
     public User updateUserInfo(User user) {
+        firestore = DatabaseInitialize.getInstance().getFirestore();
         //getting old user data
         User oldUser = null;
         CollectionReference usersCollection = firestore.collection("users");
