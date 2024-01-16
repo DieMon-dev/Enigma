@@ -16,13 +16,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/login/{login}")
-    public User getUserByLogin(@PathVariable String login) {
-        if (login.length() == 10 && isDigit(login.charAt(0))) {
-            return userService.getUserByUserName(login);
-        } else {
-            return userService.getUserByUserName(login);
-        }
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        return userService.createUser(user);
+    }
+
+    @PostMapping("/update")
+    public User updateUserInfo(@RequestBody User user) {
+        return userService.updateUserInfo(user);
     }
     @GetMapping
     public List<User> getAllUsers() {
@@ -34,28 +35,27 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-
     @GetMapping("check/userLogin/{login}")
     public boolean checkIfUserExists(@PathVariable String login) {
         return userService.checkIfUserExists(login);
+    }
+
+    @GetMapping("/login/{login}")
+    public User getUserByLogin(@PathVariable String login) {
+        if (login.length() == 10 && isDigit(login.charAt(0))) {
+            return userService.getUserByUserName(login);
+        } else {
+            return userService.getUserByUserName(login);
+        }
     }
     @GetMapping("check/userPassword/{userLogin}/{userPassword}")
     public User checkIfUserPasswordMatches(@PathVariable String userLogin, @PathVariable String userPassword) {
         return userService.checkIfUserPasswordMatches(userLogin, userPassword);
     }
+
     @GetMapping("check/oldPwd/{userId}/{userPassword}")
     public boolean checkIfOldPwdMatches(@PathVariable String userId, @PathVariable String userPassword) {
         return userService.checkIfOldPwdMatches(userId, userPassword);
-    }
-
-    @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
-    }
-
-    @PostMapping("/update")
-    public User updateUserInfo(@RequestBody User user) {
-        return userService.updateUserInfo(user);
     }
 
     @DeleteMapping("/{id}")

@@ -151,7 +151,13 @@ public class UserService {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return user;
+        if (user != null){
+            return user;
+        }
+        else {
+            user.setUserId("Error 404. Not Found");
+            return user;
+        }
     }
 
     public boolean checkIfOldPwdMatches(String userId, String userPassword) {

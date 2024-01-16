@@ -3,7 +3,7 @@ package com.DieMoon.EnigmaChat.models;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Pivot {
+public class PivotChats {
     @Getter
     @Setter
     private String userIdPivot;

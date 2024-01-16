@@ -36,4 +36,12 @@ public class ChatService {
         return chats;
     }
 
+//    public List<Chat> getChatsByUserId(String userId){
+//        firestore = DatabaseInitialize.getInstance().getFirestore();
+//        List<Chat> chats = new ArrayList<>();
+//
+//        CollectionReference chatsCollection = firestore.collection("chats");
+//        CollectionReference pivotCollection = firestore.collection("pivotChats");
+//    }
+
 }
