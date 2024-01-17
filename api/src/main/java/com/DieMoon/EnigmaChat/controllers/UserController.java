@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-
-import static java.lang.Character.isDigit;
 
 @RestController
 @RequestMapping("/api/users")
@@ -42,12 +39,9 @@ public class UserController {
 
     @GetMapping("/login/{login}")
     public User getUserByLogin(@PathVariable String login) {
-        if (login.length() == 10 && isDigit(login.charAt(0))) {
-            return userService.getUserByUserName(login);
-        } else {
-            return userService.getUserByUserName(login);
-        }
+        return userService.getUserByUserName(login);
     }
+
     @GetMapping("check/userPassword/{userLogin}/{userPassword}")
     public User checkIfUserPasswordMatches(@PathVariable String userLogin, @PathVariable String userPassword) {
         return userService.checkIfUserPasswordMatches(userLogin, userPassword);
