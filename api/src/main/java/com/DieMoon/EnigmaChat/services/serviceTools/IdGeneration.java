@@ -1,4 +1,6 @@
-package com.DieMoon.EnigmaChat.services;
+package com.DieMoon.EnigmaChat.services.serviceTools;
+
+import com.DieMoon.EnigmaChat.services.UserService;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;

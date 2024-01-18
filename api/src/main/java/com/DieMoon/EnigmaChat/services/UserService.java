@@ -1,6 +1,8 @@
 package com.DieMoon.EnigmaChat.services;
 
 import com.DieMoon.EnigmaChat.models.User;
+import com.DieMoon.EnigmaChat.services.serviceTools.DatabaseInitialize;
+import com.DieMoon.EnigmaChat.services.serviceTools.IdGeneration;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import lombok.SneakyThrows;
@@ -99,13 +101,13 @@ public class UserService {
         }
     }
 
-    public User getUserByUserName(String userName) {
+    public User getUserByUserLogin(String userLogin) {
         firestore = DatabaseInitialize.getInstance().getFirestore();
         //get user by username for in-app search
         User user = null;
 
         CollectionReference usersCollection = firestore.collection("users");
-        Query query = usersCollection.whereEqualTo("userName", userName);
+        Query query = usersCollection.whereEqualTo("userLogin", userLogin);
         ApiFuture<QuerySnapshot> querySnapshot = query.get();
 
         try {
@@ -115,7 +117,7 @@ public class UserService {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-
+        user.setUserPassword("");
         return user;
     }
 
@@ -151,13 +153,10 @@ public class UserService {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        if (user != null){
-            return user;
-        }
-        else {
+        if (user == null) {
             user.setUserId("Error 404. Not Found");
-            return user;
         }
+        return user;
     }
 
     public boolean checkIfOldPwdMatches(String userId, String userPassword) {
