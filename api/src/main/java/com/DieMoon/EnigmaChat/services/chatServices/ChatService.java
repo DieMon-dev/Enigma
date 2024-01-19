@@ -1,6 +1,7 @@
 package com.DieMoon.EnigmaChat.services.chatServices;
 
 import com.DieMoon.EnigmaChat.models.Chat;
+import com.DieMoon.EnigmaChat.models.Message;
 import com.DieMoon.EnigmaChat.services.serviceTools.DatabaseInitialize;
 import com.DieMoon.EnigmaChat.services.serviceTools.PivotChatService;
 import com.google.api.core.ApiFuture;
@@ -87,6 +88,23 @@ public class ChatService {
         }
 
         return chats;
+    }
+
+    public void deleteChat(String chatId){
+        //delete chat
+        firestore = DatabaseInitialize.getInstance().getFirestore();
+        firestore.collection("chats").document(chatId).delete();
+
+        //delete related messages
+        String messageChatId = chatId;
+        MessageService messageService = new MessageService();
+        List<Message> messages = new ArrayList<>();
+        messages = messageService.getMessagesByChatId(messageChatId);
+        for (Message message : messages) {
+            messageService.deleteMessage(message.getMessageId());
+        }
+
+        //TODO: delete related pivotChats
     }
 
 }

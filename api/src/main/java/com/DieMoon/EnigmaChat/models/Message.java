@@ -23,4 +23,5 @@ public class Message {
     @Getter
     @Setter
     private String messageContent;
+
 }

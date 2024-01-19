@@ -52,7 +52,7 @@ public class UserController {
         return userService.checkIfOldPwdMatches(userId, userPassword);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
     }
