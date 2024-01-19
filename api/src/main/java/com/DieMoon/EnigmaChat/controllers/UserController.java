@@ -37,9 +37,9 @@ public class UserController {
         return userService.checkIfUserExists(login);
     }
 
-    @GetMapping("/login/{login}")
+    @GetMapping("/getByLogin/{login}")
     public User getUserByLogin(@PathVariable String login) {
-        return userService.getUserByUserName(login);
+        return userService.getUserByUserLogin (login);
     }
 
     @GetMapping("check/userPassword/{userLogin}/{userPassword}")
@@ -52,7 +52,7 @@ public class UserController {
         return userService.checkIfOldPwdMatches(userId, userPassword);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
     }

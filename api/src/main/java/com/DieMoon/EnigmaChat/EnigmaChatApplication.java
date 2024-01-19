@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class EnigmaChatApplication {
 
 	public static void main(String[] args) {SpringApplication.run(EnigmaChatApplication.class, args);
+
 	}
 
 

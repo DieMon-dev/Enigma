@@ -1,4 +1,4 @@
-package com.DieMoon.EnigmaChat.services;
+package com.DieMoon.EnigmaChat.services.serviceTools;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.Firestore;
@@ -6,6 +6,7 @@ import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import lombok.Getter;
 
 import javax.annotation.PostConstruct;
 import java.io.FileInputStream;
@@ -15,16 +16,13 @@ import java.io.FileInputStream;
 
 
 public class DatabaseInitialize {
+    @Getter
     private static final DatabaseInitialize instance = new DatabaseInitialize();
     private Firestore firestore;
 
     private DatabaseInitialize() {
         // Initialize Firestore
         initialize();
-    }
-
-    public static DatabaseInitialize getInstance() {
-        return instance;
     }
 
     @PostConstruct
