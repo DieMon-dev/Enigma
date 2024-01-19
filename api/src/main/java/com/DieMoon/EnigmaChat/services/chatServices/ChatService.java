@@ -2,7 +2,9 @@ package com.DieMoon.EnigmaChat.services.chatServices;
 
 import com.DieMoon.EnigmaChat.models.Chat;
 import com.DieMoon.EnigmaChat.models.Message;
+import com.DieMoon.EnigmaChat.services.UserService;
 import com.DieMoon.EnigmaChat.services.serviceTools.DatabaseInitialize;
+import com.DieMoon.EnigmaChat.services.serviceTools.IdGeneration;
 import com.DieMoon.EnigmaChat.services.serviceTools.PivotChatService;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.CollectionReference;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
 
 @Service
 public class ChatService {
@@ -41,14 +44,21 @@ public class ChatService {
 
     }
     //TODO: create private chat
-//    public Chat chatCreate(String userIdLocal, String userIdRemote){
-//        firestore = DatabaseInitialize.getInstance().getFirestore();
-//        Chat newchat = null;
-//
-//
-//
-//        return newchat;
-//    }
+    public Chat chatCreate(String userIdLocal, String userIdRemote){
+        firestore = DatabaseInitialize.getInstance().getFirestore();
+        UserService userService = new UserService();
+        String userName1 = userService.getUserById(userIdRemote).getUserName();
+        String userName2 = userService.getUserById(userIdRemote).getUserName();
+        Chat newChat = new Chat();
+
+        newChat.setChatTitle(userName1 + " and " + userName2);
+        newChat.setChatId(IdGeneration.generateChatId(userIdLocal, userIdRemote));
+        newChat.setChatLastMsgId("");
+        firestore.collection("chats").document(newChat.getChatId()).set(newChat);
+        PivotChatService.createDependence(newChat.getChatId(), userIdLocal);
+        PivotChatService.createDependence(newChat.getChatId(), userIdRemote);
+        return newChat;
+    }
 
     public List<Chat> getAllChats() {
         firestore = DatabaseInitialize.getInstance().getFirestore();
@@ -103,8 +113,7 @@ public class ChatService {
         for (Message message : messages) {
             messageService.deleteMessage(message.getMessageId());
         }
-
-        //TODO: delete related pivotChats
+        PivotChatService.deletePivotByChatId(chatId);
     }
 
 }

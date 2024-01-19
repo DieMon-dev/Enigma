@@ -19,15 +19,10 @@ public class MessageService {
     private ChatService chatService;
     private Firestore firestore;
 
-    public boolean sendMessage(String messageSenderId, String messageContent, String messageChatId, String messageSentAt){
+    public boolean sendMessage(Message newMessage){
         firestore = DatabaseInitialize.getInstance().getFirestore();
         String messageId = IdGeneration.generateMsgId();
-        Message newMessage = new Message();
         newMessage.setMessageId(messageId);
-        newMessage.setMessageSenderId(messageSenderId);
-        newMessage.setMessageContent(messageContent);
-        newMessage.setMessageChatId(messageChatId);
-        newMessage.setMessageSentAt(messageSentAt);
 
         firestore.collection("messages").document(messageId).set(newMessage);
         return true;

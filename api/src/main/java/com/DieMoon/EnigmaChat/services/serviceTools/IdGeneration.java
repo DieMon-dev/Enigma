@@ -33,16 +33,18 @@ public class IdGeneration {
         String beginning = LocalDateTime.now().format(formatter);
         String someSymbols = generateRandomCharacters();
         String ending = generateRandomNumbers();
-        System.out.println(someSymbols);
         String id = generateRandomCharacters() + beginning + someSymbols + ending +generateRandomCharacters();
-        return id;
-        // TODO Check for uniqueness
-//        if (userService.checkIfIdExists(id)){
-//            return generateId();
+//        if (Service.checkIfIdExists(id)){
+//            return generateMsgId();
 //        }
 //        else{
 //            return id;
 //        }
+        return id;
+    }
+    public static String generateChatId(String userId1, String userId2) {
+        String id = userId1 + "---" + userId2;
+        return id;
     }
 
     private static String generateRandomNumbers() {
