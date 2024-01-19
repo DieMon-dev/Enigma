@@ -1,7 +1,7 @@
 import userStore from "../stores/user_store"
 export default class  EnigmaAPI{
 
-    private url = "https://tricky-squids-invite.loca.lt"
+    private url = "https://rude-poets-design.loca.lt"
 
     private url_login = this.url + "/api/users/check/userPassword/"
     private url_login_register = this.url + "/api/users/check/userLogin/"
@@ -10,8 +10,9 @@ export default class  EnigmaAPI{
     private url_chek_old_password = this.url + "/api/users/check/oldPwd/"
 
     async Login(login: string, password: string): Promise<boolean> {
-        const result = fetch(this.url_login + login + "/" + password).then(response => {              
-            return response.json()}).then(response => {userStore.setUser(response.userId, response.userLogin, response.userName);console.log(response); return response ? true: false})
+        const result = fetch(this.url_login + login + "/" + password).then(response => {             
+            return response.json()}).then(response => {console.log(response);if(response.userId){userStore.setUser(response.userId, response.userLogin, response.userName);console.log(response);
+            return true}else{return false}})
         return result
 
    }

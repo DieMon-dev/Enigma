@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {View} from 'react-native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
@@ -8,11 +9,12 @@ import UserMainPage from '../pages/UserMainPage';
 import { styled } from 'nativewind';
 import TrudnoPage from '../pages/TrudnoPage';
 import SettingsPage from '../pages/Settings';
+import ChatLayout from './ChatLayout';
 
-const StyledIcon = styled(FontAwesomeIcon);
-const StyledView = styled(View);
+const StyledIcon = styled(FontAwesomeIcon);;
 
 const Tab = createMaterialBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 interface UserPageLayoutProps {
     navigation : any
@@ -25,14 +27,12 @@ interface UserPageLayoutProps {
 export default class UserPageLayout extends React.Component<UserPageLayoutProps, UserPageLayoutInterface> {
     constructor(props: any) {
         super(props);
-        props.navigation.setOptions({
-          headerShown: false,
-          headerTransparent: true,
-        });
+        
     }
 
     render(){
         return (
+          <NavigationContainer independent={true}>
             <Tab.Navigator
                  activeColor="#FFFFFF"
                  inactiveColor="#797C7B"
@@ -83,6 +83,11 @@ export default class UserPageLayout extends React.Component<UserPageLayoutProps,
                         },
                       }} 
                 />
+                <Tab.Screen 
+                    name="ChatLayout" 
+                    component={ChatLayout} 
+                />
             </Tab.Navigator>
+            </NavigationContainer>
   );}
 };

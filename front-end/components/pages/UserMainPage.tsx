@@ -52,7 +52,7 @@ export default class UserMainPage extends React.Component<UserMainPageProps, Use
         {this.state.isBottom ? <EnigmaPageLogo></EnigmaPageLogo> :<StyledText className='relative bottom-[339.5px]'><EnigmaTopLogo> </EnigmaTopLogo></StyledText>}
         <SwipeUpDown		
 	      itemMini={<UserFindSelect></UserFindSelect>} // Pass props component when collapsed
-	      itemFull={<UserChatsList>fdfd</UserChatsList>} // Pass props component when show full
+	      itemFull={<UserChatsList navigation={this.props.navigation}></UserChatsList>} // Pass props component when show full
 	      onShowMini={() => this.handleLogoChange("bottom")}
 	      onShowFull={() => this.handleLogoChange("top")}
         animation = {"easeInEaseOut"}
