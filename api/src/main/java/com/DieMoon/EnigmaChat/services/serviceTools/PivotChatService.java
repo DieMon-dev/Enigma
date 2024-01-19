@@ -16,7 +16,7 @@ public class PivotChatService {
 
     public void createDependence(String chatId, String userId){
         firestore = DatabaseInitialize.getInstance().getFirestore();
-        PivotChats newPivot = null;
+        PivotChats newPivot = new PivotChats();
         newPivot.setChatIdPivot(chatId);
         newPivot.setUserIdPivot(userId);
 
@@ -71,19 +71,37 @@ public class PivotChatService {
         return pivotChats;
     }
 
-    @SneakyThrows
-    public void deletePivotByChatId(String chatId){
-        firestore = DatabaseInitialize.getInstance().getFirestore();
-        CollectionReference pivotCollection = firestore.collection("PivotChats");
-        ApiFuture<QuerySnapshot> future = pivotCollection.whereEqualTo("chatIdPivot", chatId).get();
-// future.get() blocks on response
-        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-        for (DocumentSnapshot document : documents) {
-            System.out.println(document);
-            pivotCollection.document(document.getId()).delete();
-        }
+//    public List<String> getChatsByChatId(String chatIdPivot) {
+//        firestore = DatabaseInitialize.getInstance().getFirestore();
+//        List<String> pivotChats = new ArrayList<>(); // Initialize the list
+//
+//
+//        CollectionReference usersCollection = firestore.collection("pivotChats");
+//        Query query = usersCollection.whereEqualTo("chatIdPivot", chatIdPivot);
+//        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+//
+//        try {
+//            for (QueryDocumentSnapshot document : querySnapshot.get()) {
+//
+//                PivotChats pivotChat = document.toObject(PivotChats.class);
+//                pivotChats.add();
+//            }
+//        } catch (InterruptedException | ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//        return pivotChats;
+//    }
 
-    }
+//    @SneakyThrows
+//    public void getChatsByChatId(String chatId){
+//        firestore = DatabaseInitialize.getInstance().getFirestore();
+//        List<String> chatUsers = getChatsByChatId(chatId);
+//        for (String chatUser : chatUsers) {
+//            firestore.collection("pivotChats").document(chatUser).delete();
+//        }
+//
+//
+//    }
 
 
 }

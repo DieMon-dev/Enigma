@@ -10,7 +10,7 @@ public class Chat {
 
     @Getter
     @Setter
-    private String chatLastMsgId;
+    private String chatLastMsg;
 
     @Getter
     @Setter
