@@ -13,6 +13,8 @@ export default class  EnigmaAPI{
     private url_chek_old_password = this.url + "/api/users/check/oldPwd/"
     private url_find_user_by_login = this.url + "/api/users/getByLogin/"
     private url_check_user_chat = this.url + "/api/chats/check/usersChat/"
+    private url_user_chats_list = this.url + "/api/chats/userChatList/"
+    private url_chat_messages = this.url + "/api/chats/messages/for/"
 
     async Login(login: string, password: string): Promise<boolean> {
         const result = fetch(this.url_login + login + "/" + password).then(response => {             
@@ -85,6 +87,20 @@ export default class  EnigmaAPI{
 
       async CheckUserChat(userId: string, remoteUserId: string): Promise<Boolean>{
         const result = fetch(this.url_check_user_chat + userId + "/" +  remoteUserId).then(response => {              
+            return response.json()}).then(response => {console.log(response);return response})
+        return result
+    
+    }
+
+    ChatsList(userId: string): Promise<any>{
+        const result = fetch(this.url_user_chats_list + userId).then(response => {              
+            return response.json()}).then(response => {console.log(response);return response})
+        return result
+    
+    }
+
+    ChatMessages(chatId: string): Promise<any>{
+        const result = fetch(this.url_chat_messages + chatId).then(response => {              
             return response.json()}).then(response => {console.log(response);return response})
         return result
     
