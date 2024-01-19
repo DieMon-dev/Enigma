@@ -17,7 +17,40 @@ public class UserService {
     // Create an instance of databaseInitialize
     private Firestore firestore;
 
+    public User createUser(User user) {
+        firestore = DatabaseInitialize.getInstance().getFirestore();
+        // Create a new user in Firestore
+        String userId = IdGeneration.generateUserId();
+        user.setUserId(userId);
 
+
+        return user;
+    }
+
+    @SneakyThrows
+    public User updateUserInfo(User user) {
+        firestore = DatabaseInitialize.getInstance().getFirestore();
+        //getting old user data
+        User oldUser = null;
+        CollectionReference usersCollection = firestore.collection("users");
+        Query query = usersCollection.whereEqualTo("userId", user.getUserId());
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+        oldUser = querySnapshot.get().getDocuments().get(0).toObject(User.class);
+
+        //checking for password empty field and setting old value if empty
+        if (user.getUserPassword().equals("")){
+            user.setUserPassword(oldUser.getUserPassword());
+        }
+
+        ApiFuture<WriteResult> writeResult = firestore.collection("users").document(user.getUserId()).set(user);
+
+        try {
+            System.out.println("Update time : " + writeResult.get().getUpdateTime());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
 
     //functions for the user service
     public List<User> getAllUsers() {
@@ -73,33 +106,6 @@ public class UserService {
         return false;
     }
 
-    public User createUser(User user) {
-        firestore = DatabaseInitialize.getInstance().getFirestore();
-        // Create a new user in Firestore
-        String userId = IdGeneration.generateUserId();
-        user.setUserId(userId);
-        ApiFuture<WriteResult> result = firestore.collection("users").document(userId).set(user);
-
-        try {
-            System.out.println("Update time : " + result.get().getUpdateTime());
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return user;
-    }
-
-    public void deleteUser(String id) {
-        firestore = DatabaseInitialize.getInstance().getFirestore();
-        // Delete a user by ID from Firestore
-        ApiFuture<WriteResult> writeResult = firestore.collection("users").document(id).delete();
-
-        try {
-            System.out.println("Update time : " + writeResult.get().getUpdateTime());
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
 
     public User getUserByUserLogin(String userLogin) {
         firestore = DatabaseInitialize.getInstance().getFirestore();
@@ -179,29 +185,19 @@ public class UserService {
         return user.getUserPassword().equals(userPassword);
     }
 
-    @SneakyThrows
-    public User updateUserInfo(User user) {
+
+
+    public void deleteUser(String id) {
         firestore = DatabaseInitialize.getInstance().getFirestore();
-        //getting old user data
-        User oldUser = null;
-        CollectionReference usersCollection = firestore.collection("users");
-        Query query = usersCollection.whereEqualTo("userId", user.getUserId());
-        ApiFuture<QuerySnapshot> querySnapshot = query.get();
-        oldUser = querySnapshot.get().getDocuments().get(0).toObject(User.class);
-
-        //checking for password empty field and setting old value if empty
-        if (user.getUserPassword().equals("")){
-            user.setUserPassword(oldUser.getUserPassword());
-        }
-
-        ApiFuture<WriteResult> writeResult = firestore.collection("users").document(user.getUserId()).set(user);
+        // Delete a user by ID from Firestore
+        ApiFuture<WriteResult> writeResult = firestore.collection("users").document(id).delete();
 
         try {
             System.out.println("Update time : " + writeResult.get().getUpdateTime());
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return user;
     }
+
 
 }

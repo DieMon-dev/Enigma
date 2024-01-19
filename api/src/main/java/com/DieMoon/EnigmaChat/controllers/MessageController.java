@@ -17,7 +17,7 @@ public class MessageController {
 
     @PostMapping("/send")
     public boolean sendMessage(@RequestBody Message newMessage){
-        return messageService.sendMessage(newMessage.getMessageSenderId(), newMessage.getMessageContent(), newMessage.getMessageChatId(), newMessage.getMessageSentAt());
+        return messageService.sendMessage(newMessage);
     }
 
     @GetMapping("/for/{chatId}")

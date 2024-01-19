@@ -14,6 +14,6 @@ public class Chat {
 
     @Getter
     @Setter
-    private String chat;
+    private String chatTitle;//userName1 + "?/?" + userName2
 
 }

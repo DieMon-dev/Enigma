@@ -13,6 +13,9 @@ public class ChatController {
     @Autowired
     private ChatService chatService;
 
+    @PostMapping("/create/{userId1}/{userId2}")
+    public Chat createChat(@PathVariable String userId1, @PathVariable String userId2){ return chatService.chatCreate(userId1, userId2); };
+
     @GetMapping()
     public List<Chat> getChats() {
         return chatService.getAllChats();
@@ -25,7 +28,7 @@ public class ChatController {
     public boolean ifChatWithUserExists(@PathVariable String userIdLocal, @PathVariable String userIdRemote){ return chatService.ifChatWithUserExists(userIdLocal, userIdRemote); }
 
     @DeleteMapping("/delete/{chatId}")
-    public void deleteMessage(@PathVariable String chatId) {
+    public void deleteChat(@PathVariable String chatId) {
         chatService.deleteChat(chatId);
     }
 }
