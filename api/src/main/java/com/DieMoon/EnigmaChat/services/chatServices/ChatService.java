@@ -45,15 +45,18 @@ public class ChatService {
     }
     //TODO: create private chat
     public Chat chatCreate(String userIdLocal, String userIdRemote){
+        System.out.println("userIdLocal: " + userIdLocal);
+        System.out.println("userIdRemote: " + userIdRemote);
+
         firestore = DatabaseInitialize.getInstance().getFirestore();
         UserService userService = new UserService();
-        String userName1 = userService.getUserById(userIdRemote).getUserName();
+        String userName1 = userService.getUserById(userIdLocal).getUserName();
         String userName2 = userService.getUserById(userIdRemote).getUserName();
         Chat newChat = new Chat();
 
         newChat.setChatTitle(userName1 + " and " + userName2);
         newChat.setChatId(IdGeneration.generateChatId(userIdLocal, userIdRemote));
-        newChat.setChatLastMsgId("");
+        newChat.setChatLastMsg("");
         firestore.collection("chats").document(newChat.getChatId()).set(newChat);
         PivotChatService.createDependence(newChat.getChatId(), userIdLocal);
         PivotChatService.createDependence(newChat.getChatId(), userIdRemote);
@@ -113,7 +116,7 @@ public class ChatService {
         for (Message message : messages) {
             messageService.deleteMessage(message.getMessageId());
         }
-        PivotChatService.deletePivotByChatId(chatId);
+//        PivotChatService.deletePivotByChatId(chatId);
     }
 
 }

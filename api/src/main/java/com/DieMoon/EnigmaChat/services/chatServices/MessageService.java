@@ -23,8 +23,8 @@ public class MessageService {
         firestore = DatabaseInitialize.getInstance().getFirestore();
         String messageId = IdGeneration.generateMsgId();
         newMessage.setMessageId(messageId);
-
         firestore.collection("messages").document(messageId).set(newMessage);
+        firestore.collection("chats").document(newMessage.getMessageChatId()).update("chatLastMsg", newMessage.getMessageContent());
         return true;
     }
 
