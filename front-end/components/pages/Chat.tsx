@@ -44,7 +44,7 @@ export default class ChatPage extends React.Component<LoginPageProps, LoginPageI
       <StyledLinearGradient className="flex flex-1 w-full h-full items-center justify-center "
       colors={["#20242c", "#6e7d98" ,"#9ea6b8"]} start={[0.5, 0.01]}>
         <StyledText className='relative bottom-[98.5px]'><EnigmaTopLogo> </EnigmaTopLogo></StyledText>
-        <StyledScrollView className="w-full h-5/6 p-2 bottom-2 inline">
+        <StyledScrollView className="w-full h-5/6 p-2 bottom-2 inline ">
            <Message message='hi' user={true}/>
            <Message message='lorem is hghg' user={false}/>
            <Message message='t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as'

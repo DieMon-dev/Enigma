@@ -5,41 +5,65 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import {faSearch} from '@fortawesome/free-solid-svg-icons'
 import EnigmaAPI from '../../api/SignInUpAPI';
+import remoteUserStore from '../../stores/Remote_User_Store';
 import DropdownSelect from 'react-native-input-select';
+import { observer } from "mobx-react";
+import userStore from '../../stores/user_store';
 
 const StyledText = styled(Text)
 const StyledView = styled(View)
 const StyledIcon = styled(FontAwesomeIcon);
 
 interface UserFindSelectProps {
+  navigation : any
 }
 
 interface UserFindSelectInterface {
-    selectedUser: any,
+    navigation : any
+    selectedUser: string,
     optionList: Array<any>[any]
 }
-
+@observer
 export default class UserFindSelect extends React.Component<UserFindSelectProps, UserFindSelectInterface> {
   constructor(props: any) {
     super(props);
     this.state = {
-        selectedUser: null,
-        optionList: [
-            { value: 'Ola', label: "Ola" },
-            { value: 'Kristina', label: 'Kristina' },
-            { value: 'Mateusz', label: 'Mateusz' },
-            { value: 'Bartek', label: 'Bartek' },
-            { value: 'Andrii', label: 'Andrii' },
-            { value: 'Olesia', label: 'Olesia' },
-            { value: 'Ania', label: 'Ania' },
-            { value: 'Petro', label: 'Petro' },
-          ]
+        selectedUser: "",
+        optionList: [],
+        navigation: []
     };
   }
 
+  componentDidMount() {
+    // Initialize component state with data from remoteUserStore
+    const remoteUser = remoteUserStore.getRemoteUser();
+    this.setState({
+      selectedUser: remoteUser.userId, // Assuming userId is the property you want to use as selectedUser
+      optionList: [{ value: remoteUser.userLogin, label: remoteUser.userName }],
+    });
+  }
+
+  componentDidUpdate(prevProps: UserFindSelectProps, prevState: UserFindSelectInterface) {
+    const remoteUser = remoteUserStore.getRemoteUser();
+
+    // Check if the userId has changed in remoteUserStore, update the component state
+    if (remoteUser.userId !== prevState.selectedUser) {
+      this.setState({
+        selectedUser: remoteUser.userId,
+        optionList: [{ value: remoteUser.userLogin, label: remoteUser.userName }],
+      });
+    }
+  }
+
     handleChange = (selectedUser: any) => {
-        this.setState({selectedUser}, () =>
-            console.log(`Option selected:`, this.state.selectedUser)
+      this.setState({selectedUser})
+      const api = new EnigmaAPI
+      const remoteUser = remoteUserStore.getRemoteUser();
+      const user = userStore.getUser();
+      api.CheckUserChat(user.userId, remoteUser.userId).then((response)=>{
+        if(response === true){
+          this.props.navigation.navigate("ChatLayout")
+        }}
         );
     };
   render(){  
@@ -100,7 +124,7 @@ export default class UserFindSelect extends React.Component<UserFindSelectProps,
                       alignItems: 'center',
                     },
                     textInputProps: {
-                      placeholder: 'Write Name of Your Friend',
+                      placeholder: 'Write Phone Number of Your Friend',
                       placeholderTextColor: 'black',
                     },
                   }}
