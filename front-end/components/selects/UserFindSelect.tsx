@@ -35,6 +35,8 @@ export default class UserFindSelect extends React.Component<UserFindSelectProps,
     };
   }
 
+  private api = new EnigmaAPI
+
   componentDidMount() {
     // Initialize component state with data from remoteUserStore
     const remoteUser = remoteUserStore.getRemoteUser();
@@ -58,17 +60,22 @@ export default class UserFindSelect extends React.Component<UserFindSelectProps,
 
     handleChange = (selectedUser: any) => {
       this.setState({selectedUser})
-      const api = new EnigmaAPI
       const remoteUser = remoteUserStore.getRemoteUser();
       const user = userStore.getUser();
-      api.CheckUserChat(user.userId, remoteUser.userId).then((response)=>{
-        console.log(response)
+      this.api.CheckUserChat(user.userId, remoteUser.userId).then((response)=>{
         if(response === true){
-          console.log("chat")
-          this.props.navigation.navigate("Chat")
+          this.api.ChatsList(userStore.getUser().userId).then(response =>{
+            response.map((element: any)=>{
+              if(element.chatId.includes(remoteUser.userId)){
+                chatStore.setChatId(element.chatId)
+                this.props.navigation.navigate("Chat")
+              }
+            })
+          })
         }else{
-          chatStore.setChatId("")
-          this.props.navigation.navigate("Chat")
+          this.api.CreateChat(user.userId, remoteUser.userId).then((response)=>{
+          chatStore.setChatId(response.chatId)
+          this.props.navigation.navigate("Chat")})
         }
       }
         );
