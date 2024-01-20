@@ -10,7 +10,6 @@ class EnigmaChatApplicationTests {
 
 	@Test
 	void contextLoads() {
-
 	}
 
 }

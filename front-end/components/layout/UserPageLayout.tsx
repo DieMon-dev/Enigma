@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View} from 'react-native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
@@ -10,8 +10,6 @@ import TrudnoPage from '../pages/TrudnoPage';
 import SettingsPage from '../pages/Settings';
 
 const StyledIcon = styled(FontAwesomeIcon);
-const StyledView = styled(View);
-
 const Tab = createMaterialBottomTabNavigator();
 
 interface UserPageLayoutProps {
@@ -83,6 +81,6 @@ export default class UserPageLayout extends React.Component<UserPageLayoutProps,
                         },
                       }} 
                 />
-            </Tab.Navigator>
+            </Tab.Navigator> 
   );}
 };
