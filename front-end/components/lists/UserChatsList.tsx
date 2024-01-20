@@ -47,7 +47,6 @@ export default class UserChatsList extends React.Component<UserChatsListProps, U
 
   handleChatClick(element: any){
     chatStore.setChatId(element.chatId)
-    console.log("chats list",chatStore.getChatId())
     this.props.navigation.navigate("Chat")
   }
 

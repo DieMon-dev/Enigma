@@ -18,6 +18,7 @@ export default class  EnigmaAPI{
     private url_send_message = this.url + "/api/chats/messages/send"
     private url_delete_message = this.url + "/api/chats/messages/delete/"
     private url_delete_chat = this.url + "/api/chats/delete/"
+    private url_create_chat = this.url + "/api/chats/create/"
     
 
     async Login(login: string, password: string): Promise<boolean> {
@@ -120,18 +121,24 @@ export default class  EnigmaAPI{
         return result
     }
 
-    async DeleteMessage(messageId: string): Promise<boolean>{
-      
-        const result = fetch(this.url_delete_message + messageId).then(response => {              
-            return response.json()}).then(response => {console.log(response);return response})
-        return result
+    async DeleteMessage(messageId: string): Promise<any>{
+        fetch(this.url_delete_message + messageId)
+        return true
     }
 
-    async DeleteChat(chatId: string): Promise<boolean>{
+    async DeleteChat(chatId: string): Promise<any>{
       
         const result = fetch(this.url_delete_chat + chatId).then(response => {              
             return response.json()}).then(response => {console.log(response);return response})
         return result
     }
+
+    async CreateChat(userId: string, remoteUserId: string): Promise<any>{
+        const result = fetch(this.url_create_chat + userId + "/" +  remoteUserId).then(response => {              
+            return response.json()}).then(response => {return response})
+        return result
+    
+    }
+    
 
 };
