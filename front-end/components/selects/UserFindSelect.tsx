@@ -6,7 +6,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import {faSearch} from '@fortawesome/free-solid-svg-icons'
 import EnigmaAPI from '../../api/SignInUpAPI';
 import remoteUserStore from '../../stores/Remote_User_Store';
-import DropdownSelect from 'react-native-input-select';
+import DropdownSelect from '../locallibs/react-native-input-select';
 import { observer } from "mobx-react";
 import userStore from '../../stores/user_store';
 import chatStore from '../../stores/Chat_Store';
