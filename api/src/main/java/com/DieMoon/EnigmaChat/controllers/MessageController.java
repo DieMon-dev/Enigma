@@ -25,7 +25,7 @@ public class MessageController {
         return messageService.getMessagesByChatId(chatId);
     }
 
-    @DeleteMapping("/delete/{messageId}")
+    @GetMapping("/delete/{messageId}")
     public void deleteMessage(@PathVariable String messageId) {
         messageService.deleteMessage(messageId);
     }

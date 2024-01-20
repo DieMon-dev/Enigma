@@ -13,7 +13,7 @@ public class ChatController {
     @Autowired
     private ChatService chatService;
 
-    @PostMapping("/create/{userId1}/{userId2}")
+    @GetMapping("/create/{userId1}/{userId2}")
     public Chat createChat(@PathVariable String userId1, @PathVariable String userId2){ return chatService.chatCreate(userId1, userId2); };
 
     @GetMapping()
