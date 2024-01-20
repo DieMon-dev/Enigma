@@ -5,7 +5,7 @@ import WellcomePage from '../pages/WellcomePage';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import StarterPage from '../pages/StarterPage';
-import UserPageLayout from './UserPageLayout';
+import ChatLayout from './ChatLayout';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,7 +34,7 @@ export default class Layout extends React.Component {
                 />
                 <Stack.Screen 
                     name="UserPageLayout" 
-                    component={UserPageLayout} 
+                    component={ChatLayout} 
                     options={{ headerShown: false }}
                 />
             </Stack.Navigator>

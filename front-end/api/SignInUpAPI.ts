@@ -4,7 +4,7 @@ import { runInAction } from 'mobx';
 
 export default class  EnigmaAPI{
 
-    private url = "https://major-memes-rest.loca.lt"
+    private url = "https://lovely-otters-cry.loca.lt"
 
     private url_login = this.url + "/api/users/check/userPassword/"
     private url_login_register = this.url + "/api/users/check/userLogin/"
@@ -15,6 +15,10 @@ export default class  EnigmaAPI{
     private url_check_user_chat = this.url + "/api/chats/check/usersChat/"
     private url_user_chats_list = this.url + "/api/chats/userChatList/"
     private url_chat_messages = this.url + "/api/chats/messages/for/"
+    private url_send_message = this.url + "/api/chats/messages/send"
+    private url_delete_message = this.url + "/api/chats/messages/delete/"
+    private url_delete_chat = this.url + "/api/chats/delete/"
+    
 
     async Login(login: string, password: string): Promise<boolean> {
         const result = fetch(this.url_login + login + "/" + password).then(response => {             
@@ -55,7 +59,7 @@ export default class  EnigmaAPI{
 
     async CheckPassword(userId: string, password: string): Promise<Boolean>{
         const result = fetch(this.url_chek_old_password + userId + "/" + password).then(response => {              
-            return response.json()}).then(response => {console.log(response); return response})
+            return response.json()}).then(response => {return response})
         return result
     
     }
@@ -87,23 +91,47 @@ export default class  EnigmaAPI{
 
       async CheckUserChat(userId: string, remoteUserId: string): Promise<Boolean>{
         const result = fetch(this.url_check_user_chat + userId + "/" +  remoteUserId).then(response => {              
-            return response.json()}).then(response => {console.log(response);return response})
+            return response.json()}).then(response => {return response})
         return result
     
     }
 
     ChatsList(userId: string): Promise<any>{
         const result = fetch(this.url_user_chats_list + userId).then(response => {              
-            return response.json()}).then(response => {console.log(response);return response})
+            return response.json()}).then(response => {return response})
         return result
-    
+    }
+ 
+    ChatMessages(chatId: string): Promise<Array<Object>>{
+        const result = fetch(this.url_chat_messages + chatId).then(response => {              
+            return response.json()}).then(response => {return response})
+        return result
+     
     }
 
-    ChatMessages(chatId: string): Promise<any>{
-        const result = fetch(this.url_chat_messages + chatId).then(response => {              
+    async SendMessage(messageChatId: string, messageSenderId: string, messageContent: string): Promise<Boolean>{
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({messageChatId: messageChatId, messageSenderId: messageSenderId, messageSentAt: new Date().toLocaleString().split(',')[1].toString(), messageContent: messageContent})
+        };
+        const result = fetch(this.url_send_message,  requestOptions).then(response => {              
+            return response.json()}).then(response => {return response})
+        return result
+    }
+
+    async DeleteMessage(messageId: string): Promise<boolean>{
+      
+        const result = fetch(this.url_delete_message + messageId).then(response => {              
             return response.json()}).then(response => {console.log(response);return response})
         return result
-    
+    }
+
+    async DeleteChat(chatId: string): Promise<boolean>{
+      
+        const result = fetch(this.url_delete_chat + chatId).then(response => {              
+            return response.json()}).then(response => {console.log(response);return response})
+        return result
     }
 
 };

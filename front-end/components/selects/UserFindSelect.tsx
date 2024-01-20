@@ -9,6 +9,7 @@ import remoteUserStore from '../../stores/Remote_User_Store';
 import DropdownSelect from 'react-native-input-select';
 import { observer } from "mobx-react";
 import userStore from '../../stores/user_store';
+import chatStore from '../../stores/Chat_Store';
 
 const StyledText = styled(Text)
 const StyledView = styled(View)
@@ -61,9 +62,15 @@ export default class UserFindSelect extends React.Component<UserFindSelectProps,
       const remoteUser = remoteUserStore.getRemoteUser();
       const user = userStore.getUser();
       api.CheckUserChat(user.userId, remoteUser.userId).then((response)=>{
+        console.log(response)
         if(response === true){
-          this.props.navigation.navigate("ChatLayout")
-        }}
+          console.log("chat")
+          this.props.navigation.navigate("Chat")
+        }else{
+          chatStore.setChatId("")
+          this.props.navigation.navigate("Chat")
+        }
+      }
         );
     };
   render(){  
