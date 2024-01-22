@@ -71,6 +71,20 @@ public class PivotChatService {
         return pivotChats;
     }
 
+    public void deletePivotsByChatId(String chatId) {
+        CollectionReference usersCollection = firestore.collection("pivotChats");
+        Query query = usersCollection.whereEqualTo("chatIdPivot", chatId);
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+
+        try {
+            for (QueryDocumentSnapshot document : querySnapshot.get()) {
+                document.getReference().delete();
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
 //    public List<String> getChatsByChatId(String chatIdPivot) {
 //        firestore = DatabaseInitialize.getInstance().getFirestore();
 //        List<String> pivotChats = new ArrayList<>(); // Initialize the list
