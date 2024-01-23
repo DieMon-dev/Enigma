@@ -45,8 +45,6 @@ public class ChatService {
     }
     //TODO: create private chat
     public Chat chatCreate(String userIdLocal, String userIdRemote){
-        System.out.println("userIdLocal: " + userIdLocal);
-        System.out.println("userIdRemote: " + userIdRemote);
 
         firestore = DatabaseInitialize.getInstance().getFirestore();
         UserService userService = new UserService();
@@ -116,7 +114,7 @@ public class ChatService {
         for (Message message : messages) {
             messageService.deleteMessage(message.getMessageId());
         }
-//        PivotChatService.deletePivotByChatId(chatId);
+        PivotChatService.deletePivotsByChatId(chatId);
     }
 
 }

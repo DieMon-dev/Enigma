@@ -9,6 +9,9 @@ import com.google.cloud.firestore.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -22,7 +25,14 @@ public class MessageService {
     public boolean sendMessage(Message newMessage){
         firestore = DatabaseInitialize.getInstance().getFirestore();
         String messageId = IdGeneration.generateMsgId();
+        long currentTimeMillis = System.currentTimeMillis();
+        Instant instant = Instant.ofEpochMilli(currentTimeMillis);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy/HH/mm/ss")
+                .withZone(ZoneId.systemDefault());
+        String messageSentAt = formatter.format(instant);
+
         newMessage.setMessageId(messageId);
+        newMessage.setMessageSentAt(messageSentAt);
         firestore.collection("messages").document(messageId).set(newMessage);
         firestore.collection("chats").document(newMessage.getMessageChatId()).update("chatLastMsg", newMessage.getMessageContent());
         return true;
