@@ -41,8 +41,6 @@ public class MessageService {
 
     public List<Message> sortMessagesByDate(List<Message> messages) {
         List<Message> sortedMessages = new ArrayList<>(messages);
-
-        // Use a custom comparator to compare messages based on their sentAt dates
         Collections.sort(sortedMessages, new Comparator<Message>() {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy/HH/mm/ss");
 
@@ -52,15 +50,15 @@ public class MessageService {
                     Date date1 = dateFormat.parse(message1.getMessageSentAt());
                     Date date2 = dateFormat.parse(message2.getMessageSentAt());
 
-                    // Compare the dates
                     return date1.compareTo(date2);
                 } catch (ParseException e) {
                     e.printStackTrace();
-                    // Handle the parsing exception if necessary
                 }
-                return 0; // Default to no change in order
+                return 0;
             }
         });
+
+        Collections.reverse(sortedMessages);
 
         return sortedMessages;
     }
