@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect}from 'react';
 import {
   Modal,
   TouchableOpacity,
   SafeAreaView,
   StyleSheet,
   TouchableWithoutFeedback,
+  Text
 } from 'react-native';
 import { colors } from '../../styles/colors';
 
@@ -16,6 +17,8 @@ const CustomModal = ({
   modalProps,
   children,
 }: any) => {
+
+  
   return (
     <Modal
       transparent={true}

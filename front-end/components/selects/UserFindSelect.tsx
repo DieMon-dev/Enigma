@@ -22,7 +22,8 @@ interface UserFindSelectProps {
 interface UserFindSelectInterface {
     navigation : any
     selectedUser: string,
-    optionList: Array<any>[any]
+    optionList: Array<any>[any],
+    optionsAreReady: boolean
 }
 @observer
 export default class UserFindSelect extends React.Component<UserFindSelectProps, UserFindSelectInterface> {
@@ -31,18 +32,20 @@ export default class UserFindSelect extends React.Component<UserFindSelectProps,
     this.state = {
         selectedUser: "",
         optionList: [],
-        navigation: []
+        navigation: [],
+        optionsAreReady: false
     };
   }
 
   private api = new EnigmaAPI
+  private remoteUser = remoteUserStore.getRemoteUser()
 
   componentDidMount() {
+    this.setState({optionsAreReady: false})
     // Initialize component state with data from remoteUserStore
-    const remoteUser = remoteUserStore.getRemoteUser();
     this.setState({
-      selectedUser: remoteUser.userId, // Assuming userId is the property you want to use as selectedUser
-      optionList: [{ value: remoteUser.userLogin, label: remoteUser.userName }],
+      selectedUser: this.remoteUser.userId, // Assuming userId is the property you want to use as selectedUser
+      optionList: [{ value: this.remoteUser.userLogin, label: this.remoteUser.userName }],
     });
   }
 
@@ -51,29 +54,30 @@ export default class UserFindSelect extends React.Component<UserFindSelectProps,
 
     // Check if the userId has changed in remoteUserStore, update the component state
     if (remoteUser.userId !== prevState.selectedUser) {
+      console.log("remote user state changed")
       this.setState({
         selectedUser: remoteUser.userId,
         optionList: [{ value: remoteUser.userLogin, label: remoteUser.userName }],
       });
+      this.setState({optionsAreReady: true})
     }
   }
 
     handleChange = (selectedUser: any) => {
       this.setState({selectedUser})
-      const remoteUser = remoteUserStore.getRemoteUser();
       const user = userStore.getUser();
-      this.api.CheckUserChat(user.userId, remoteUser.userId).then((response)=>{
+      this.api.CheckUserChat(user.userId, this.remoteUser.userId).then((response)=>{
         if(response === true){
           this.api.ChatsList(userStore.getUser().userId).then(response =>{
             response.map((element: any)=>{
-              if(element.chatId.includes(remoteUser.userId)){
+              if(element.chatId.includes(this.remoteUser.userId)){
                 chatStore.setChatId(element.chatId)
                 this.props.navigation.navigate("Chat")
               }
             })
           })
         }else{
-          this.api.CreateChat(user.userId, remoteUser.userId).then((response)=>{
+          this.api.CreateChat(user.userId, this.remoteUser.userId).then((response)=>{
           chatStore.setChatId(response.chatId)
           this.props.navigation.navigate("Chat")})
         }
@@ -89,10 +93,10 @@ export default class UserFindSelect extends React.Component<UserFindSelectProps,
             <StyledText className="text-base text-white mb-4">Your chats will appear here</StyledText>
             <DropdownSelect
                 placeholder="Find your first friend here..."
-                options={this.state.optionList}
+                options={this.state.optionsAreReady ? [{ value: this.remoteUser.userLogin, label: this.remoteUser.userName }]: []}
                 optionLabel={'label'}
                 optionValue={'value'}
-                selectedValue={selectedUser}
+                selectedValue={this.state.optionsAreReady ? this.remoteUser.userName : ""}
                 onValueChange={(user: any) => this.handleChange(user)}
                 isSearchable
                 primaryColor={'white'}
