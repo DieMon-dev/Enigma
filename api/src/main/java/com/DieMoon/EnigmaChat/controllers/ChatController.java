@@ -27,7 +27,7 @@ public class ChatController {
     @GetMapping("/check/usersChat/{userIdLocal}/{userIdRemote}")
     public boolean ifChatWithUserExists(@PathVariable String userIdLocal, @PathVariable String userIdRemote){ return chatService.ifChatWithUserExists(userIdLocal, userIdRemote); }
 
-    @DeleteMapping("/delete/{chatId}")
+    @GetMapping("/delete/{chatId}")
     public void deleteChat(@PathVariable String chatId) {
         chatService.deleteChat(chatId);
     }
