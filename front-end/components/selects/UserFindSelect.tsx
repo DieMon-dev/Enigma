@@ -22,8 +22,7 @@ interface UserFindSelectProps {
 interface UserFindSelectInterface {
     navigation : any
     selectedUser: string,
-    optionList: Array<any>[any],
-    optionsAreReady: boolean
+    optionList: Array<any>[any]
 }
 @observer
 export default class UserFindSelect extends React.Component<UserFindSelectProps, UserFindSelectInterface> {
@@ -32,8 +31,7 @@ export default class UserFindSelect extends React.Component<UserFindSelectProps,
     this.state = {
         selectedUser: "",
         optionList: [],
-        navigation: [],
-        optionsAreReady: false
+        navigation: []
     };
   }
 
@@ -41,8 +39,6 @@ export default class UserFindSelect extends React.Component<UserFindSelectProps,
   private remoteUser = remoteUserStore.getRemoteUser()
 
   componentDidMount() {
-    this.setState({optionsAreReady: false})
-    // Initialize component state with data from remoteUserStore
     this.setState({
       selectedUser: this.remoteUser.userId, // Assuming userId is the property you want to use as selectedUser
       optionList: [{ value: this.remoteUser.userLogin, label: this.remoteUser.userName }],
@@ -50,40 +46,36 @@ export default class UserFindSelect extends React.Component<UserFindSelectProps,
   }
 
   componentDidUpdate(prevProps: UserFindSelectProps, prevState: UserFindSelectInterface) {
-    const remoteUser = remoteUserStore.getRemoteUser();
-
     // Check if the userId has changed in remoteUserStore, update the component state
-    if (remoteUser.userId !== prevState.selectedUser) {
-      console.log("remote user state changed")
+    if (this.remoteUser.userId !== prevState.selectedUser) {
       this.setState({
-        selectedUser: remoteUser.userId,
-        optionList: [{ value: remoteUser.userLogin, label: remoteUser.userName }],
+        selectedUser: this.remoteUser.userId,
+        optionList: [{ value: this.remoteUser.userLogin, label: this.remoteUser.userName }],
       });
-      this.setState({optionsAreReady: true})
     }
   }
 
-    handleChange = (selectedUser: any) => {
-      this.setState({selectedUser})
-      const user = userStore.getUser();
-      this.api.CheckUserChat(user.userId, this.remoteUser.userId).then((response)=>{
-        if(response === true){
-          this.api.ChatsList(userStore.getUser().userId).then(response =>{
-            response.map((element: any)=>{
-              if(element.chatId.includes(this.remoteUser.userId)){
-                chatStore.setChatId(element.chatId)
-                this.props.navigation.navigate("Chat")
-              }
-            })
+  handleChange = (selectedUser: any) => {
+    this.setState({selectedUser})
+    const user = userStore.getUser();
+    this.api.CheckUserChat(user.userId, this.remoteUser.userId).then((response)=>{
+      if(response === true){
+        this.api.ChatsList(userStore.getUser().userId).then(response =>{
+          response.map((element: any)=>{
+            if(element.chatId.includes(this.remoteUser.userId)){
+              chatStore.setChatId(element.chatId)
+              this.props.navigation.navigate("Chat")
+            }
           })
-        }else{
-          this.api.CreateChat(user.userId, this.remoteUser.userId).then((response)=>{
-          chatStore.setChatId(response.chatId)
-          this.props.navigation.navigate("Chat")})
-        }
+        })
+      }else{
+        this.api.CreateChat(user.userId, this.remoteUser.userId).then((response)=>{
+        chatStore.setChatId(response.chatId)
+        this.props.navigation.navigate("Chat")})
       }
-        );
-    };
+    }
+      );
+  };
   render(){  
 
     const { selectedUser } = this.state;
@@ -93,10 +85,10 @@ export default class UserFindSelect extends React.Component<UserFindSelectProps,
             <StyledText className="text-base text-white mb-4">Your chats will appear here</StyledText>
             <DropdownSelect
                 placeholder="Find your first friend here..."
-                options={this.state.optionsAreReady ? [{ value: this.remoteUser.userLogin, label: this.remoteUser.userName }]: []}
+                options={this.state.optionList}
                 optionLabel={'label'}
                 optionValue={'value'}
-                selectedValue={this.state.optionsAreReady ? this.remoteUser.userName : ""}
+                selectedValue={selectedUser}
                 onValueChange={(user: any) => this.handleChange(user)}
                 isSearchable
                 primaryColor={'white'}

@@ -361,7 +361,7 @@ export const DropdownSelect: React.FC<DropdownProps> = ({
               {isSearchable && (
                 <Input
                   value={searchValue}
-                  onSubmitEditing={(event) => {
+                  onSubmitEditing={(event: any) => {
                     if(event.nativeEvent.text.length === 9 && /^\d+$/.test(event.nativeEvent.text)){
                     const element = new EnigmaApi()
                     element.FindUserByLogin(event.nativeEvent.text)

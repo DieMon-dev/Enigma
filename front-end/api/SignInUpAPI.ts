@@ -4,7 +4,7 @@ import { runInAction } from 'mobx';
 
 export default class  EnigmaAPI{
 
-    private url = "https://brave-carrots-wink.loca.lt"
+    private url = "https://empty-gifts-enter.loca.lt"
 
     private url_login = this.url + "/api/users/check/userPassword/"
     private url_login_register = this.url + "/api/users/check/userLogin/"
@@ -114,10 +114,10 @@ export default class  EnigmaAPI{
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({messageChatId: messageChatId, messageSenderId: messageSenderId, messageSentAt: new Date().toLocaleString().split(',')[1].toString(), messageContent: messageContent})
+            body: JSON.stringify({messageChatId: messageChatId, messageSenderId: messageSenderId,  messageContent: messageContent})
         };
         const result = fetch(this.url_send_message,  requestOptions).then(response => {              
-            return response.json()}).then(response => {return response})
+            return response.json()}).then(response => {console.log(response);return response})
         return result
     }
 

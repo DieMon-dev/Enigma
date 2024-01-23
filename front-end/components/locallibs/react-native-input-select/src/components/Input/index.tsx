@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import { TextInput, StyleSheet, View, Platform } from 'react-native';
 import { inputStyles } from '../../styles/input';
 
