@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { TouchableOpacity, StyleSheet, View, Alert } from 'react-native';
+import { TouchableOpacity, StyleSheet, View, Alert , Text} from 'react-native';
 import EnigmaApi from '../../../../api/SignInUpAPI'
 import Input from './components/Input';
 import CheckBox from './components/CheckBox';
@@ -318,11 +318,7 @@ export const DropdownSelect: React.FC<DropdownProps> = ({
           }
         );
   };
-  const [someVar, setSomeVar] = useState(false);
-
-  const renderData = () => {
-    setSomeVar(true);
-  }
+ 
 
   return (
     <>
@@ -368,7 +364,7 @@ export const DropdownSelect: React.FC<DropdownProps> = ({
                   onSubmitEditing={(event) => {
                     if(event.nativeEvent.text.length === 9 && /^\d+$/.test(event.nativeEvent.text)){
                     const element = new EnigmaApi()
-                    element.FindUserByLogin(event.nativeEvent.text).then(()=>{renderData();renderData()})
+                    element.FindUserByLogin(event.nativeEvent.text)
                     }else{
                       Alert.alert('Phone number must contain 9 digits and only digits', 'Please, try again', [
                         {

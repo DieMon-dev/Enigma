@@ -4,7 +4,7 @@ import { runInAction } from 'mobx';
 
 export default class  EnigmaAPI{
 
-    private url = "https://sixty-bugs-sing.loca.lt"
+    private url = "https://brave-carrots-wink.loca.lt"
 
     private url_login = this.url + "/api/users/check/userPassword/"
     private url_login_register = this.url + "/api/users/check/userLogin/"
@@ -121,16 +121,14 @@ export default class  EnigmaAPI{
         return result
     }
 
-    async DeleteMessage(messageId: string): Promise<any>{
+    async DeleteMessage(messageId: string): Promise<boolean>{
         fetch(this.url_delete_message + messageId)
         return true
     }
 
-    async DeleteChat(chatId: string): Promise<any>{
-      
-        const result = fetch(this.url_delete_chat + chatId).then(response => {              
-            return response.json()}).then(response => {console.log(response);return response})
-        return result
+    async DeleteChat(chatId: string): Promise<boolean>{
+      fetch(this.url_delete_chat + chatId)
+        return true
     }
 
     async CreateChat(userId: string, remoteUserId: string): Promise<any>{
