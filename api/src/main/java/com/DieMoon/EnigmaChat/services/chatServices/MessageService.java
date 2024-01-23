@@ -9,11 +9,12 @@ import com.google.cloud.firestore.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -38,6 +39,31 @@ public class MessageService {
         return true;
     }
 
+    public List<Message> sortMessagesByDate(List<Message> messages) {
+        List<Message> sortedMessages = new ArrayList<>(messages);
+
+        // Use a custom comparator to compare messages based on their sentAt dates
+        Collections.sort(sortedMessages, new Comparator<Message>() {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy/HH/mm/ss");
+
+            @Override
+            public int compare(Message message1, Message message2) {
+                try {
+                    Date date1 = dateFormat.parse(message1.getMessageSentAt());
+                    Date date2 = dateFormat.parse(message2.getMessageSentAt());
+
+                    // Compare the dates
+                    return date1.compareTo(date2);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    // Handle the parsing exception if necessary
+                }
+                return 0; // Default to no change in order
+            }
+        });
+
+        return sortedMessages;
+    }
     public List<Message> getMessagesByChatId(String messageChatId){
         firestore = DatabaseInitialize.getInstance().getFirestore();
         List<Message> messages = new ArrayList<>();
@@ -54,7 +80,7 @@ public class MessageService {
             e.printStackTrace();
         }
 
-        return messages;
+        return sortMessagesByDate(messages);
     }
 
     public void deleteMessage(String messageId) {
