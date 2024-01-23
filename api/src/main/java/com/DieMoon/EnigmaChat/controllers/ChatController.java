@@ -2,6 +2,7 @@ package com.DieMoon.EnigmaChat.controllers;
 
 import com.DieMoon.EnigmaChat.models.Chat;
 import com.DieMoon.EnigmaChat.services.chatServices.ChatService;
+//import com.DieMoon.EnigmaChat.services.serviceTools.EventsListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,8 +11,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/chats")
 public class ChatController {
+//TODO listen to chat changes
     @Autowired
     private ChatService chatService;
+//    private final EventsListener chatListener;
+//
+//    @Autowired
+//    public EnigmaChatApplication(EventsListener chatListener) {
+//        this.chatListener = chatListener;
+//    }
+//    @Autowired
+//    private ChatService chatService;
+
 
     @GetMapping("/create/{userId1}/{userId2}")
     public Chat createChat(@PathVariable String userId1, @PathVariable String userId2){ return chatService.chatCreate(userId1, userId2); };
