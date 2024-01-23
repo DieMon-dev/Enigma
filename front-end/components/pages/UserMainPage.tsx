@@ -3,7 +3,7 @@ import {Text, BackHandler} from 'react-native';
 import { styled } from 'nativewind';
 import { LinearGradient } from "expo-linear-gradient";
 import EnigmaPageLogo from '../logo/EnigmaPage';
-import SwipeUpDown from 'react-native-swipe-up-down';
+import SwipeUpDown from '../locallibs/react-native-swipe-up-down';
 import EnigmaTopLogo from '../logo/EnigmaTop';
 import UserFindSelect from '../selects/UserFindSelect';
 import UserChatsList from '../lists/UserChatsList';

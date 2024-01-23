@@ -20,7 +20,8 @@ interface MessageInterface {
   message: string,
   messageId: string,
   user: boolean | undefined,
-  deleteIcon: boolean
+  deleteIcon: boolean,
+  historyIsReady: boolean
 }
 
 export default class Message extends React.Component<MessageProps, MessageInterface> {
@@ -30,9 +31,12 @@ export default class Message extends React.Component<MessageProps, MessageInterf
       message: "",
       messageId: "",
       deleteIcon: false,
-      user: undefined
+      user: undefined,
+      historyIsReady: false
     };
   }
+
+  private api = new EnigmaAPI();
 
   componentDidMount() {
    this.setState({messageId: this.props.messageId})
@@ -41,8 +45,7 @@ export default class Message extends React.Component<MessageProps, MessageInterf
 
   deleteMessage = () => {
     console.log(this.state.messageId)
-    const api = new EnigmaAPI
-    api.DeleteMessage(this.state.messageId)
+    this.api.DeleteMessage(this.state.messageId)
   }
 
   render(){  

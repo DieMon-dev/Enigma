@@ -22,6 +22,7 @@ interface UserChatsListProps {
 interface UserChatsListInterface {
     navigation : any,
     optionList: Array<any>[any]
+    chatListRerender: boolean,
 }
 @observer
 export default class UserChatsList extends React.Component<UserChatsListProps, UserChatsListInterface> {
@@ -29,7 +30,8 @@ export default class UserChatsList extends React.Component<UserChatsListProps, U
     super(props);
     this.state = {
       navigation : [],
-      optionList: []
+      optionList: [],
+      chatListRerender: false
     };
     props.navigation.setOptions({
       headerShown: false,
@@ -47,7 +49,6 @@ export default class UserChatsList extends React.Component<UserChatsListProps, U
 
   handleChatClick(element: any){
     chatStore.setChatId(element.chatId)
-    console.log("chats list",chatStore.getChatId())
     this.props.navigation.navigate("Chat")
   }
 
@@ -57,8 +58,8 @@ export default class UserChatsList extends React.Component<UserChatsListProps, U
         text: 'Sure',
         onPress: () => {this.api.DeleteChat(element.chatId).then(()=>{
           this.api.ChatsList(userStore.getUser().userId).then(response =>{
-            this.setState({optionList: response})
-          })})},
+            this.setState({optionList: response})}).then(()=>{this.setState({chatListRerender: !this.state.chatListRerender})})
+          })},
       },
       {
         text: 'Cancel',

@@ -66,7 +66,7 @@ public class IdGeneration {
         StringBuilder sb = new StringBuilder(String.valueOf(randomNumbers));
 
         // Define the characters you want to include in the random part
-        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_+=<>?";
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
         for (int i = 0; i < 14; i++) {
             int randomIndex = secureRandom.nextInt(characters.length());

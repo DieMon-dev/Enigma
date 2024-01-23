@@ -4,7 +4,7 @@ import { runInAction } from 'mobx';
 
 export default class  EnigmaAPI{
 
-    private url = "https://lovely-otters-cry.loca.lt"
+    private url = "https://empty-gifts-enter.loca.lt"
 
     private url_login = this.url + "/api/users/check/userPassword/"
     private url_login_register = this.url + "/api/users/check/userLogin/"
@@ -18,6 +18,7 @@ export default class  EnigmaAPI{
     private url_send_message = this.url + "/api/chats/messages/send"
     private url_delete_message = this.url + "/api/chats/messages/delete/"
     private url_delete_chat = this.url + "/api/chats/delete/"
+    private url_create_chat = this.url + "/api/chats/create/"
     
 
     async Login(login: string, password: string): Promise<boolean> {
@@ -113,25 +114,29 @@ export default class  EnigmaAPI{
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({messageChatId: messageChatId, messageSenderId: messageSenderId, messageSentAt: new Date().toLocaleString().split(',')[1].toString(), messageContent: messageContent})
+            body: JSON.stringify({messageChatId: messageChatId, messageSenderId: messageSenderId,  messageContent: messageContent})
         };
         const result = fetch(this.url_send_message,  requestOptions).then(response => {              
-            return response.json()}).then(response => {return response})
+            return response.json()}).then(response => {console.log(response);return response})
         return result
     }
 
     async DeleteMessage(messageId: string): Promise<boolean>{
-      
-        const result = fetch(this.url_delete_message + messageId).then(response => {              
-            return response.json()}).then(response => {console.log(response);return response})
-        return result
+        fetch(this.url_delete_message + messageId)
+        return true
     }
 
     async DeleteChat(chatId: string): Promise<boolean>{
-      
-        const result = fetch(this.url_delete_chat + chatId).then(response => {              
-            return response.json()}).then(response => {console.log(response);return response})
-        return result
+      fetch(this.url_delete_chat + chatId)
+        return true
     }
+
+    async CreateChat(userId: string, remoteUserId: string): Promise<any>{
+        const result = fetch(this.url_create_chat + userId + "/" +  remoteUserId).then(response => {              
+            return response.json()}).then(response => {return response})
+        return result
+    
+    }
+    
 
 };

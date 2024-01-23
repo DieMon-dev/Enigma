@@ -6,7 +6,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import {faSearch} from '@fortawesome/free-solid-svg-icons'
 import EnigmaAPI from '../../api/SignInUpAPI';
 import remoteUserStore from '../../stores/Remote_User_Store';
-import DropdownSelect from 'react-native-input-select';
+import DropdownSelect from '../locallibs/react-native-input-select';
 import { observer } from "mobx-react";
 import userStore from '../../stores/user_store';
 import chatStore from '../../stores/Chat_Store';
@@ -35,44 +35,47 @@ export default class UserFindSelect extends React.Component<UserFindSelectProps,
     };
   }
 
+  private api = new EnigmaAPI
+  private remoteUser = remoteUserStore.getRemoteUser()
+
   componentDidMount() {
-    // Initialize component state with data from remoteUserStore
-    const remoteUser = remoteUserStore.getRemoteUser();
     this.setState({
-      selectedUser: remoteUser.userId, // Assuming userId is the property you want to use as selectedUser
-      optionList: [{ value: remoteUser.userLogin, label: remoteUser.userName }],
+      selectedUser: this.remoteUser.userId, // Assuming userId is the property you want to use as selectedUser
+      optionList: [{ value: this.remoteUser.userLogin, label: this.remoteUser.userName }],
     });
   }
 
   componentDidUpdate(prevProps: UserFindSelectProps, prevState: UserFindSelectInterface) {
-    const remoteUser = remoteUserStore.getRemoteUser();
-
     // Check if the userId has changed in remoteUserStore, update the component state
-    if (remoteUser.userId !== prevState.selectedUser) {
+    if (this.remoteUser.userId !== prevState.selectedUser) {
       this.setState({
-        selectedUser: remoteUser.userId,
-        optionList: [{ value: remoteUser.userLogin, label: remoteUser.userName }],
+        selectedUser: this.remoteUser.userId,
+        optionList: [{ value: this.remoteUser.userLogin, label: this.remoteUser.userName }],
       });
     }
   }
 
-    handleChange = (selectedUser: any) => {
-      this.setState({selectedUser})
-      const api = new EnigmaAPI
-      const remoteUser = remoteUserStore.getRemoteUser();
-      const user = userStore.getUser();
-      api.CheckUserChat(user.userId, remoteUser.userId).then((response)=>{
-        console.log(response)
-        if(response === true){
-          console.log("chat")
-          this.props.navigation.navigate("Chat")
-        }else{
-          chatStore.setChatId("")
-          this.props.navigation.navigate("Chat")
-        }
+  handleChange = (selectedUser: any) => {
+    this.setState({selectedUser})
+    const user = userStore.getUser();
+    this.api.CheckUserChat(user.userId, this.remoteUser.userId).then((response)=>{
+      if(response === true){
+        this.api.ChatsList(userStore.getUser().userId).then(response =>{
+          response.map((element: any)=>{
+            if(element.chatId.includes(this.remoteUser.userId)){
+              chatStore.setChatId(element.chatId)
+              this.props.navigation.navigate("Chat")
+            }
+          })
+        })
+      }else{
+        this.api.CreateChat(user.userId, this.remoteUser.userId).then((response)=>{
+        chatStore.setChatId(response.chatId)
+        this.props.navigation.navigate("Chat")})
       }
-        );
-    };
+    }
+      );
+  };
   render(){  
 
     const { selectedUser } = this.state;
