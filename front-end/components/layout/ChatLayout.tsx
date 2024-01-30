@@ -6,12 +6,27 @@ import UserPageLayout from './UserPageLayout';
 
 const Stack = createNativeStackNavigator();
 
+interface ChatLayoutProps {
+    navigation : any
+  }
+  
+  interface ChatLayoutInterface {
+    navigation : any
+}
 
-export default class ChatLayout extends React.Component {
+
+export default class ChatLayout extends React.Component<ChatLayoutProps, ChatLayoutInterface>{
+    constructor(props: any) {
+        super(props);
+        props.navigation.setOptions({
+          headerShown: false,
+          headerTransparent: true,
+        });
+    }
 
     render(){
         return (
-            <NavigationContainer independent={true}>
+
                 <Stack.Navigator>
                     <Stack.Screen
                         name="UserPage"
@@ -22,6 +37,6 @@ export default class ChatLayout extends React.Component {
                         component={ChatPage}
                     />
                 </Stack.Navigator>
-            </NavigationContainer>
+
   );}
 };

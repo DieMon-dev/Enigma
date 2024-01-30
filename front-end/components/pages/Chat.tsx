@@ -9,7 +9,6 @@ import EnigmaButtonLogo from '../logo/EnigmaButtonLogo';
 import Message from '../msg/Message';
 import chatStore from '../../stores/Chat_Store';
 import userStore from '../../stores/user_store';
-import { reaction } from 'mobx';
 
 const StyledView = styled(View);
 const StyledText = styled(Text);

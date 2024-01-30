@@ -7,6 +7,9 @@ import SwipeUpDown from '../locallibs/react-native-swipe-up-down';
 import EnigmaTopLogo from '../logo/EnigmaTop';
 import UserFindSelect from '../selects/UserFindSelect';
 import UserChatsList from '../lists/UserChatsList';
+import userStore from '../../stores/user_store';
+import { StackActions } from '@react-navigation/native';
+import { observer } from 'mobx-react';
 
 const StyledText = styled(Text)
 const StyledLinearGradient = styled(LinearGradient)
@@ -19,6 +22,7 @@ interface UserMainPAgeInterface {
     isBottom : boolean
 }
 
+@observer
 export default class UserMainPage extends React.Component<UserMainPageProps, UserMainPAgeInterface> {
   constructor(props: any) {
     super(props);
@@ -29,8 +33,18 @@ export default class UserMainPage extends React.Component<UserMainPageProps, Use
   }
 
   componentDidMount() {
+    this.props.navigation.addListener('focus', this._onFocus);
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
   }
+
+  _onFocus = () => {
+    if(userStore.getLogOut() === true){
+      userStore.setLogOut(false);
+      this.props.navigation.dispatch(StackActions.popToTop())
+    }
+    console.log("=====_onFocus")
+  };
+
 
   handleBackButton() {
     return true;

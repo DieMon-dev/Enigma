@@ -5,7 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import EnigmaAPI from '../../api/SignInUpAPI';
 import userStore from '../../stores/user_store';
 import EnigmaTopLogo from '../logo/EnigmaTop';
-import { StackActions } from '@react-navigation/native';
+import { observer } from 'mobx-react';
 
 const StyledView = styled(View)
 const StyledText = styled(Text)
@@ -24,6 +24,7 @@ interface SettingsInterface {
   newPassword1: string,
 }
 
+@observer
 export default class SettingsPage extends React.Component<SettingsProps, SettingsInterface> {
   constructor(props: any) {
     super(props);
@@ -71,7 +72,10 @@ export default class SettingsPage extends React.Component<SettingsProps, Setting
     Alert.alert('Log Out', 'You will leave your account soon. You sure you want to leave', [
         {
           text: 'Sure',
-          onPress: () => this.props.navigation.dispatch(StackActions.popToTop()),
+          onPress: () => {
+            userStore.setLogOut(true)
+            this.props.navigation.goBack()
+          }
         },
         {
           text: 'Cancel',

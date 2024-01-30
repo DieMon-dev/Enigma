@@ -30,7 +30,7 @@ export default class UserPageLayout extends React.Component<UserPageLayoutProps,
     }
 
     render(){
-        return (
+        return ( 
             <Tab.Navigator
                  activeColor="#FFFFFF"
                  inactiveColor="#797C7B"
