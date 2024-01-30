@@ -6,6 +6,7 @@ import EnigmaAPI from '../../api/SignInUpAPI';
 import userStore from '../../stores/user_store';
 import EnigmaTopLogo from '../logo/EnigmaTop';
 import { observer } from 'mobx-react';
+import { StackActions } from '@react-navigation/native';
 
 const StyledView = styled(View)
 const StyledText = styled(Text)
@@ -73,8 +74,7 @@ export default class SettingsPage extends React.Component<SettingsProps, Setting
         {
           text: 'Sure',
           onPress: () => {
-            userStore.setLogOut(true)
-            this.props.navigation.goBack()
+            this.props.navigation.dispatch(StackActions.popToTop())
           }
         },
         {

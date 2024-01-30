@@ -4,7 +4,7 @@ import { runInAction } from 'mobx';
 
 export default class  EnigmaAPI{
 
-    private url = "https://ninety-weeks-win.loca.lt"
+    private url = "https://ten-planets-share.loca.lt"
 
     private url_login = this.url + "/api/users/check/userPassword/"
     private url_login_register = this.url + "/api/users/check/userLogin/"
