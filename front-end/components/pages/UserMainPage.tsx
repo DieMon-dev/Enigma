@@ -7,6 +7,7 @@ import SwipeUpDown from '../locallibs/react-native-swipe-up-down';
 import EnigmaTopLogo from '../logo/EnigmaTop';
 import UserFindSelect from '../selects/UserFindSelect';
 import UserChatsList from '../lists/UserChatsList';
+import { observer } from 'mobx-react';
 
 const StyledText = styled(Text)
 const StyledLinearGradient = styled(LinearGradient)
@@ -19,6 +20,7 @@ interface UserMainPAgeInterface {
     isBottom : boolean
 }
 
+@observer
 export default class UserMainPage extends React.Component<UserMainPageProps, UserMainPAgeInterface> {
   constructor(props: any) {
     super(props);
@@ -31,6 +33,7 @@ export default class UserMainPage extends React.Component<UserMainPageProps, Use
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
   }
+
 
   handleBackButton() {
     return true;

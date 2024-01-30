@@ -9,7 +9,6 @@ import EnigmaButtonLogo from '../logo/EnigmaButtonLogo';
 import Message from '../msg/Message';
 import chatStore from '../../stores/Chat_Store';
 import userStore from '../../stores/user_store';
-import { reaction } from 'mobx';
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
@@ -22,7 +21,7 @@ interface ChatPageProps {
 
 interface ChatPageInterface {
   messageToSend: string;
-  historyIsReady?: boolean
+  historyIsReady?: boolean;
 }
 
 @observer
@@ -36,7 +35,7 @@ export default class ChatPage extends React.Component<ChatPageProps, ChatPageInt
     super(props);
     this.state = {
       messageToSend: "",
-      historyIsReady: false
+      historyIsReady: false,
     };
     props.navigation.setOptions({
       headerShown: false,
@@ -44,17 +43,24 @@ export default class ChatPage extends React.Component<ChatPageProps, ChatPageInt
     });
   }
 
+  private interval: any
+
   componentDidMount() {
-    this.api.ChatMessages(this.chatId).
+    this.interval = setInterval(() => {
+      this.api.ChatMessages(this.chatId).
       then((history)=>{chatStore.setMessageHistory(history)}).
-      then(()=>{this.setState({historyIsReady:true})})
+      then(()=>{this.setState({historyIsReady:true})})   
+    }, 500);
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   handleSendButton = () => {
-    this.setState({messageToSend: ""})
     this.api.SendMessage(this.chatId, userStore.getUser().userId, this.state.messageToSend).
       then((response)=>{
         if(response === true){
+          this.setState({messageToSend: ""})
           this.api.ChatMessages(this.chatId).
           then((history)=>{chatStore.setMessageHistory(history)})
           .then(()=>{this.setState({historyIsReady:true})})

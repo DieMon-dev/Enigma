@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
@@ -30,7 +29,7 @@ export default class UserPageLayout extends React.Component<UserPageLayoutProps,
     }
 
     render(){
-        return (
+        return ( 
             <Tab.Navigator
                  activeColor="#FFFFFF"
                  inactiveColor="#797C7B"
@@ -42,7 +41,7 @@ export default class UserPageLayout extends React.Component<UserPageLayoutProps,
                     options={{
                         tabBarIcon: () => {
                           return (
-                              <StyledIcon className="color-white w-96 h-96" icon={faCommentDots as IconProp} />
+                              <StyledIcon className="color-white w-96 h-96 " icon={faCommentDots as IconProp} />
                           );
                         },
                       }

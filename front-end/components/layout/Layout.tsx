@@ -14,7 +14,7 @@ export default class Layout extends React.Component {
 
     render(){
         return (
-        <NavigationContainer independent={true}>
+        <NavigationContainer >
             <Stack.Navigator>
                 <Stack.Screen
                     name="Starter"
