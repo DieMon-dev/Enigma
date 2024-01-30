@@ -71,6 +71,24 @@ public class PivotChatService {
         return pivotChats;
     }
 
+    public List<String> getDocumentIdsByUserId(String userIdPivot) {
+        firestore = DatabaseInitialize.getInstance().getFirestore();
+        List<String> pivotChats = new ArrayList<>(); // Initialize the list
+
+        CollectionReference usersCollection = firestore.collection("pivotChats");
+        Query query = usersCollection.whereEqualTo("userIdPivot", userIdPivot);
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+
+        try {
+            for (QueryDocumentSnapshot document : querySnapshot.get()) {
+                pivotChats.add(document.getId());
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return pivotChats;
+    }
+
     public void deletePivotsByChatId(String chatId) {
         CollectionReference usersCollection = firestore.collection("pivotChats");
         Query query = usersCollection.whereEqualTo("chatIdPivot", chatId);

@@ -43,7 +43,7 @@ public class ChatService {
         return false;
 
     }
-    //TODO: create private chat
+
     public Chat chatCreate(String userIdLocal, String userIdRemote){
 
         firestore = DatabaseInitialize.getInstance().getFirestore();
