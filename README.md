@@ -2,7 +2,7 @@
 <img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/Logo-Wide.png" alt="Logo" width = "100%"/>
 
 ## Description
-📖 The Oxford Dictionary defines "enigma" as a person or thing that is mysterious or difficult to understand. Drawing inspiration from this notion, we have crafted an innovative chat application fortified with robust encryption, allowing you to engage in conversations with absolute confidence in the security of your personal data.
+📖 The Oxford Dictionary defines "enigma" as a person or thing that is mysterious or difficult to understand. Drawing inspiration from this notion, we started to develope an innovative chat application fortified with robust encryption, allowing you to engage in conversations with absolute confidence in the security of your personal data.
 <br><br>
 👾 Our chosen symbol, the ⚫️black hole⚫️, encapsulates the essence of mystery and the unknown, symbolizing the protection of information from potential hackers. With this application, your data remains as secure and unassailable as the enigmatic depths of a black hole.
 <br><br>
