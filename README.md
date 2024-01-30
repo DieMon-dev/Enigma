@@ -2,11 +2,12 @@
 <img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/Logo-Wide.png" alt="Logo" width = "100%"/>
 
 ## Description
-📖 The Oxford Dictionary defines "enigma" as a person or thing that is mysterious or difficult to understand. Drawing inspiration from this notion, we started to develope an innovative chat application fortified with robust encryption, allowing you to engage in conversations with absolute confidence in the security of your personal data.
+📖 The Oxford Dictionary defines "enigma" as something that is mysterious or difficult to understand. This notion inspired us to develop a revolutionary chat application, fortified with impenetrable encryption, allowing you to engage in conversations with absolute confidence in the security of your personal data.
 <br><br>
-👾 Our chosen symbol, the ⚫️black hole⚫️, encapsulates the essence of mystery and the unknown, symbolizing the protection of information from potential hackers. With this application, your data remains as secure and unassailable as the enigmatic depths of a black hole.
+👾 Our chosen symbol, the ⚫️black hole⚫️, encapsulates the essence of mystery and the unknown, symbolizing the protection of information from potential hackers. With this application, your data remains as secure and unassailable for possible hackers as the enigmatic depths of a black hole.
 <br><br>
-👀 Looking ahead, our dedicated team is committed to enhancing our application, infusing it with a touch of sophistication. We have exciting plans to introduce additional features that will further elevate your user experience and make our application even more indispensable. Stay tuned for these upcoming enhancements!
+👀 Our dedicated team is committed to continuous improvement, infusing our application with sophistication and innovation. We have exciting plans to introduce additional features that will elevate your user experience and make our app an indispensable tool for secure communication. Stay tuned for these upcoming enhancements and unveil the true potential of EnigmaChat.
+
 
 ## Enigma UI design screenshots
 Main page:
