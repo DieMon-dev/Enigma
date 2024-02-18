@@ -15,26 +15,28 @@ Main page:
 <img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/Main-page.png" alt="Main page" width="250"/>
 
 <br>If you don't have Enigma account - sign up! 🪪<br>
-<img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/Signup-page.png" alt="Sign up page" width="250"/>
-
-<br> Nooo! Create better password! 🔒 <br>
-<img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/Better-password.png" alt="Better password" width="250"/>
+<img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/ActualLook/signUpPage.jpeg" alt="Sign up page" width="250"/>
 
 <br> Oh! You are already our user? 🖤🖤🖤 <br>
-<img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/Login-page.png" alt="Login page" width="250"/>
+<img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/ActualLook/loginPage.jpeg" alt="Login page" width="250"/>
+
+<br> We don't have you in our data base! Please Sign up! 🔒 <br>
+<img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/ActualLook/noUserFoundAlert.jpeg" alt="Better password" width="250"/>
 
 <br> Find your friends and start first chat with them!📲<br>
-<img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/Find-friend-screen.png" alt="Login page" width="250"/>
+<img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/ActualLook/findUserPage.jpeg" alt="Login page" width="250"/>
 
 <br> Swipe up, if you already have chats. 📖<br>
-<img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/chats-screen.png" alt="Login page" width="250"/>
+<img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/ActualLook/chatsPage.jpeg" alt="Login page" width="250"/>
 
 <br> Choose any chat you want, and start messaging! ⌨️<br>
-<img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/chat-screen.png" alt="Login page" width="250"/>
+<img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/ActualLook/chatPage.jpeg" alt="Login page" width="250"/>
 
 <br> Did you change your phone number? Or do you want to change old password? Or you changed your name? Go to the settings and change that! 🖤🖤🖤 <br>
-<img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/Settings-Screen.png" alt="Settings page" width="250"/>
+<img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/ActualLook/settingsPage.jpeg" alt="Settings page" width="250"/>
 
+<br> We will add some new features! Be in touch with us! 🖤🖤🖤 <br>
+<img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/ActualLook/notFinishedPage.jpeg" alt="Settings page" width="250"/>
 
 
 ## Front-End
