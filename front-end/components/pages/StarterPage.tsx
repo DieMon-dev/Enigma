@@ -26,9 +26,9 @@ export default class StarterPage extends React.Component<StarterPageProps, Start
   }
 
   componentDidMount(): void {
-    setInterval(() => {
+    setTimeout(() => {
       this.props.navigation.navigate("Home")
-    }, 600);
+    }, 650);
   }
 
     render() {

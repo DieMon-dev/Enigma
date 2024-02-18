@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text, View} from 'react-native';
+import {Text, View, BackHandler} from 'react-native';
 import { styled } from 'nativewind';
 import { LinearGradient } from "expo-linear-gradient";
 import EnigmaMainLogo from '../logo/EnigmaMain';
@@ -23,6 +23,14 @@ export default class WellcomePage extends React.Component<WellcomePageProps, Wel
       headerShown: false,
       headerTransparent: true,
     });
+  }
+
+  componentDidMount(): void {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton() {
+    return true;
   }
 
     render() {
