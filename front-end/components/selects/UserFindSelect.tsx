@@ -38,22 +38,6 @@ export default class UserFindSelect extends React.Component<UserFindSelectProps,
   private api = new EnigmaAPI
   private remoteUser = remoteUserStore.getRemoteUser()
 
-  componentDidMount() {
-    this.setState({
-      selectedUser: this.remoteUser.userId, // Assuming userId is the property you want to use as selectedUser
-      optionList: [{ value: this.remoteUser.userLogin, label: this.remoteUser.userName }],
-    });
-  }
-
-  componentDidUpdate(prevProps: UserFindSelectProps, prevState: UserFindSelectInterface) {
-    // Check if the userId has changed in remoteUserStore, update the component state
-    if (this.remoteUser.userId !== prevState.selectedUser) {
-      this.setState({
-        selectedUser: this.remoteUser.userId,
-        optionList: [{ value: this.remoteUser.userLogin, label: this.remoteUser.userName }],
-      });
-    }
-  }
 
   handleChange = (selectedUser: any) => {
     this.setState({selectedUser})

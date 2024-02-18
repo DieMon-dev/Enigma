@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TextInput, FlatList, Alert } from 'react-native';
+import { Text, View, TextInput, FlatList, BackHandler } from 'react-native';
 import { styled } from 'nativewind';
 import { LinearGradient } from 'expo-linear-gradient';
 import { observer } from 'mobx-react';
@@ -27,10 +27,6 @@ interface ChatPageInterface {
 @observer
 export default class ChatPage extends React.Component<ChatPageProps, ChatPageInterface> {
 
-  private api = new EnigmaAPI();
-  private user = userStore.getUser().userId;
-  private chatId = chatStore.getChatId();
-
   constructor(props: any) {
     super(props);
     this.state = {
@@ -43,17 +39,28 @@ export default class ChatPage extends React.Component<ChatPageProps, ChatPageInt
     });
   }
 
+  private api = new EnigmaAPI();
+  private user = userStore.getUser().userId;
+  private chatId = chatStore.getChatId();
   private interval: any
+  private navigator = this.props.navigation
 
   componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     this.interval = setInterval(() => {
       this.api.ChatMessages(this.chatId).
       then((history)=>{chatStore.setMessageHistory(history)}).
       then(()=>{this.setState({historyIsReady:true})})   
     }, 500);
+    
   }
   componentWillUnmount() {
     clearInterval(this.interval);
+  }
+
+  handleBackButton = () => {
+    this.navigator.navigate("UserPage")
+    return true
   }
 
   handleSendButton = () => {
