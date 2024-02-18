@@ -1,10 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Modal, TouchableOpacity, SafeAreaView, StyleSheet, TouchableWithoutFeedback, Text } from 'react-native';
-import { observer } from "mobx-react"; // Import observer from mobx-react
 import { colors } from '../../styles/colors';
-import remoteUserStore from '../../../../../../stores/Remote_User_Store';// Import your remoteUserStore
 
-const CustomModal = observer(({ open, onRequestClose, modalBackgroundStyle, modalOptionsContainerStyle, modalProps, children }: any) => {
+const CustomModal = ({ open, onRequestClose, modalBackgroundStyle, modalOptionsContainerStyle, modalProps, children }: any) => {
   return (
     <Modal
       transparent={true}
@@ -32,7 +30,7 @@ const CustomModal = observer(({ open, onRequestClose, modalBackgroundStyle, moda
       </TouchableOpacity>
     </Modal>
   );
-});
+};
 
 const styles = StyleSheet.create({
   modalContainer: {

@@ -1,9 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import DropdownListItem from './DropdownListItem';
 import { ItemSeparatorComponent, ListEmptyComponent } from '../Others';
-import { TFlatList } from 'src/types/index.types';
+import { TFlatList } from '../../types/index.types';
+import remoteUserStore from '../../../../../../stores/Remote_User_Store';
+import { observer } from 'mobx-react';
+import { autorun } from 'mobx';
 
 const DropdownFlatList = ({
   options,
@@ -26,6 +29,9 @@ const DropdownFlatList = ({
   emptyListMessage,
   ...rest
 }: any) => {
+
+  const [option, setOption] = useState<any>([])
+
   const flatlistRef = useRef<FlatList<TFlatList>>(null);
 
   const scrollToItem = (index: number) => {
@@ -35,6 +41,13 @@ const DropdownFlatList = ({
     });
   };
 
+  useEffect(()=>{
+    const disposer = autorun(() => {
+      setOption([{value: remoteUserStore.getRemoteUser().userLogin, label: remoteUserStore.getRemoteUser().userName}])
+    });
+    return () => disposer();
+  }, [remoteUserStore.getRemoteUser().userName])
+
   useEffect(() => {
     if (listIndex.itemIndex >= 0) {
       scrollToItem(listIndex.itemIndex);
@@ -43,7 +56,7 @@ const DropdownFlatList = ({
 
   return (
     <FlatList
-      data={options}
+      data={option}
       extraData={isMultiple ? selectedItems : selectedItem}
       initialNumToRender={5}
       ListEmptyComponent={
@@ -114,4 +127,4 @@ const styles = StyleSheet.create({
   contentContainerStyle: { paddingTop: 20 },
 });
 
-export default DropdownFlatList;
+export default observer(DropdownFlatList);

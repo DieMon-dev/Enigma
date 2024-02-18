@@ -1,10 +1,9 @@
 import remoteUserStore from "../stores/Remote_User_Store"
 import userStore from "../stores/user_store"
-import { runInAction } from 'mobx';
 
 export default class  EnigmaAPI{
 
-    private url = "https://floppy-groups-hug.loca.lt"
+    private url = "https://red-moles-feel.loca.lt"
 
     private url_login = this.url + "/api/users/check/userPassword/"
     private url_login_register = this.url + "/api/users/check/userLogin/"
@@ -68,27 +67,26 @@ export default class  EnigmaAPI{
     async FindUserByLogin(userLogin: string) {
         try {
           const response = await fetch(this.url_find_user_by_login + userLogin);
-    
+      
           if (!response.ok) {
             throw new Error(`Error fetching user data for ${userLogin}`);
           }
-    
+      
           const userData = await response.json();
-    
-          runInAction(() => {
-            // Update remoteUserStore inside the MobX action
-            if (userData.userId) {
-              remoteUserStore.setRemoteUser(userData.userId, userData.userLogin, userData.userName);
-              console.log(userData);
-            }
-          });
-    
-          return Boolean(userData.userId);
+      
+          if (userData.userId) {
+            remoteUserStore.setRemoteUser(userData.userId, userData.userLogin, userData.userName);
+            return true;
+          } else {
+            console.error('User data not found for user login:', userLogin);
+            return false;
+          }
         } catch (error) {
           console.error('Error in FindUserByLogin:', error);
           return false;
         }
       }
+      
 
       async CheckUserChat(userId: string, remoteUserId: string): Promise<Boolean>{
         const result = fetch(this.url_check_user_chat + userId + "/" +  remoteUserId).then(response => {              
