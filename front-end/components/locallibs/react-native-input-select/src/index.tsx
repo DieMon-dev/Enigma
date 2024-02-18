@@ -66,15 +66,11 @@ export const DropdownSelect: React.FC<DropdownProps> = ({
   const [selectedItem, setSelectedItem] = useState<any>(''); // for single selection
   const [selectedItems, setSelectedItems] = useState<any[]>([]); // for multiple selection
   const [searchValue, setSearchValue] = useState<string>('');
+  const [rerender, setRerender] = useState<any>(0)
   const [listIndex, setListIndex] = useState<{
     sectionIndex?: number;
     itemIndex: number;
   }>({ itemIndex: -1, sectionIndex: -1 }); // for scrollToIndex in Sectionlist and Flatlist
-
-  useEffect(() => {
-    setNewOptions(options);
-    return () => {};
-  }, [options]);
 
   useEffect(() => {
     isMultiple
@@ -364,7 +360,7 @@ export const DropdownSelect: React.FC<DropdownProps> = ({
                   onSubmitEditing={(event: any) => {
                     if(event.nativeEvent.text.length === 9 && /^\d+$/.test(event.nativeEvent.text)){
                     const element = new EnigmaApi()
-                    element.FindUserByLogin(event.nativeEvent.text)
+                    element.FindUserByLogin(event.nativeEvent.text).then(()=>setRerender(!rerender))
                     }else{
                       Alert.alert('Phone number must contain 9 digits and only digits', 'Please, try again', [
                         {
@@ -415,7 +411,7 @@ export const DropdownSelect: React.FC<DropdownProps> = ({
           }
           ListFooterComponent={listFooterComponent}
           listComponentStyles={listComponentStyles}
-          options={newOptions}
+          options={rerender}
           optionLabel={optLabel}
           optionValue={optValue}
           isMultiple={isMultiple}
