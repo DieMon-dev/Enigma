@@ -34,6 +34,8 @@ export const Input = ({
         value={value}
         onChangeText={onChangeText}
         returnKeyType="search"
+        keyboardType="numeric"
+        maxLength={9}
         {...rest}
       />
     </View>

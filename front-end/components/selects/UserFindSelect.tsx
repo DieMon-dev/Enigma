@@ -45,6 +45,7 @@ export default class UserFindSelect extends React.Component<UserFindSelectProps,
           response.map((element: any)=>{
             if(element.chatId.includes(selectedUser)){
               chatStore.setChatId(element.chatId)
+              chatStore.setNameOfChat(element.chatTitle)
               this.props.navigation.navigate("Chat")
             }
           })
@@ -52,6 +53,7 @@ export default class UserFindSelect extends React.Component<UserFindSelectProps,
       }else{
         this.api.CreateChat(user.userId, selectedUser).then((response)=>{
         chatStore.setChatId(response.chatId)
+        chatStore.setNameOfChat(response.chatTitle)
         this.props.navigation.navigate("Chat")})
       }
     }
