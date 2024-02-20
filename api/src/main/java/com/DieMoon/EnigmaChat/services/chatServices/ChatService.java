@@ -61,6 +61,7 @@ public class ChatService {
         firestore.collection("chats").document(newChat.getChatId()).set(newChat);
         PivotChatService.createDependence(newChat.getChatId(), userIdLocal);
         PivotChatService.createDependence(newChat.getChatId(), userIdRemote);
+        newChat.setChatTitle(userService.getUserById(userIdRemote).getUserName());
         return newChat;
     }
 
