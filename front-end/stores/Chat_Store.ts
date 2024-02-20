@@ -2,7 +2,7 @@ import { observable, action } from 'mobx';
 
 class ChatStore {
     @observable private chatId = "";
-    @observable messageHistory: any = [];
+    @observable private messageHistory: any = [];
   
     @action
     setChatId(chatId: string) {

@@ -42,28 +42,22 @@ export default class ChatPage extends React.Component<ChatPageProps, ChatPageInt
   private api = new EnigmaAPI();
   private user = userStore.getUser().userId;
   private chatId = chatStore.getChatId();
-  private interval: any
   private navigator = this.props.navigation
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    this.interval = setInterval(() => {
       this.api.ChatMessages(this.chatId).
       then((history)=>{chatStore.setMessageHistory(history)}).
-      then(()=>{this.setState({historyIsReady:true})})   
-    }, 500);
-    
+      then(()=>{this.setState({historyIsReady:true})})     
   }
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
-
+ 
   handleBackButton = () => {
     this.navigator.navigate("UserPage")
     return true
   }
 
   handleSendButton = () => {
+    if(this.state.messageToSend.length !== 0){
     this.api.SendMessage(this.chatId, userStore.getUser().userId, this.state.messageToSend).
       then((response)=>{
         if(response === true){
@@ -75,6 +69,7 @@ export default class ChatPage extends React.Component<ChatPageProps, ChatPageInt
           alert("Trouble with sending message")
         }
       })
+    }
   }
 
   handleMessage = (message: string) => {
@@ -86,7 +81,7 @@ export default class ChatPage extends React.Component<ChatPageProps, ChatPageInt
     return (
       <StyledLinearGradient
         className="flex flex-1 w-full h-full items-center justify-center "
-        colors={['#20242c', '#6e7d98', '#9ea6b8']}
+        colors={["#1e2024", "#4d5264" ,"#6e7791"]}
         start={[0.5, 0.01]}
       >
         <StyledView className="w-full flex flex-col items-center justify-center">

@@ -44,7 +44,6 @@ export default class Message extends React.Component<MessageProps, MessageInterf
 
 
   deleteMessage = () => {
-    console.log(this.state.messageId)
     this.api.DeleteMessage(this.state.messageId)
   }
 

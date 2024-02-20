@@ -4,9 +4,11 @@ import { styled } from 'nativewind';
 import { LinearGradient } from "expo-linear-gradient";
 import EnigmaAPI from '../../api/SignInUpAPI';
 import userStore from '../../stores/user_store';
+import remoteUserStore from '../../stores/Remote_User_Store';
 import EnigmaTopLogo from '../logo/EnigmaTop';
 import { observer } from 'mobx-react';
 import { StackActions } from '@react-navigation/native';
+import chatStore from '../../stores/Chat_Store';
 
 const StyledView = styled(View)
 const StyledText = styled(Text)
@@ -74,6 +76,11 @@ export default class SettingsPage extends React.Component<SettingsProps, Setting
         {
           text: 'Sure',
           onPress: () => {
+            remoteUserStore.setRemoteUser("", "", "")
+            userStore.setUser("","","")
+            userStore.setLogOut(false)
+            chatStore.setChatId("")
+            chatStore.setMessageHistory([])
             this.props.navigation.dispatch(StackActions.popToTop())
           }
         },
@@ -103,7 +110,7 @@ export default class SettingsPage extends React.Component<SettingsProps, Setting
   render(){  
     return (
       <StyledLinearGradient className="flex flex-1 w-full h-full items-center justify-center "
-                            colors={["#20242c", "#6e7d98" ,"#9ea6b8"]} start={[0.5, 0.01]}>
+                            colors={["#1e2024", "#4d5264" ,"#6e7791"]} start={[0.5, 0.01]}>
         <EnigmaTopLogo></EnigmaTopLogo>
         <StyledText className=" relative bottom-16 h-10  w-60 p-1 text-white text-xl font-bold text-center">
             Update your profile info:
@@ -115,7 +122,7 @@ export default class SettingsPage extends React.Component<SettingsProps, Setting
               maxLength={12}
               onChangeText={this.handleNickName}
               value={this.state.nickName}
-              className="border-b-2 border-solid h-8 w-56 bg-slate-500 text-white text-center"
+              className="border-b-2 border-solid h-8 w-56 bg-[#3e4250] opacity-75 text-white text-center"
             />
           </StyledView>
           <StyledView className="items-center justify-center">
@@ -125,7 +132,7 @@ export default class SettingsPage extends React.Component<SettingsProps, Setting
               onChangeText={this.handleLogin}
               value={this.state.number}
               keyboardType="number-pad"
-              className="border-b-2 border-solid h-8 w-56 bg-slate-500 text-white text-center"
+              className="border-b-2 border-solid h-8 w-56 bg-[#3e4250] opacity-75 text-white text-center"
               />
           </StyledView>
           <StyledView className="items-center justify-center">
@@ -135,7 +142,7 @@ export default class SettingsPage extends React.Component<SettingsProps, Setting
               onChangeText={this.handlePassword}
               value={this.state.password}
               secureTextEntry={true}
-              className="border-b-2 border-solid h-8 w-56 bg-slate-500 text-white"
+              className="border-b-2 border-solid h-8 w-56 bg-[#3e4250] opacity-75 text-white"
             />
           </StyledView>
           <StyledView className="items-center justify-center">
@@ -144,7 +151,7 @@ export default class SettingsPage extends React.Component<SettingsProps, Setting
               maxLength={20}
               onChangeText={this.handleNewPassword}
               value={this.state.newPassword}
-              className="border-b-2 border-solid h-8 w-56 bg-slate-500 text-white"
+              className="border-b-2 border-solid h-8 w-56 bg-[#3e4250] opacity-75 text-white"
             />
           </StyledView>
           <StyledView className="items-center justify-center">
@@ -153,12 +160,12 @@ export default class SettingsPage extends React.Component<SettingsProps, Setting
               maxLength={20}
               onChangeText={this.handleNewPassword1}
               value={this.state.newPassword1}
-              className="border-b-2 border-solid h-8 w-56 bg-slate-500 text-white"
+              className="border-b-2 border-solid h-8 w-56 bg-[#3e4250] opacity-75 text-white"
             />
           </StyledView>
         </StyledView>
-        <StyledText className=" relative bottom-32 rounded-full bg-[#20242cc7] h-10  w-60 p-1 text-white text-xl font-bold text-center" onPress={()=> this.save()}>Save</StyledText>
-        <StyledText className=" relative bottom-24 rounded-full bg-[#20242cc7] h-10  w-60 p-1 text-red-600 text-xl font-bold text-center" onPress={()=> this.logOut()}>Log out</StyledText>
+        <StyledText className=" relative bottom-32 rounded-full border border-solid bg-[#323639] w-60 p-1 text-white text-xl font-bold text-center" onPress={()=> this.save()}>Save</StyledText>
+        <StyledText className=" relative bottom-24 rounded-full border border-solid bg-[#323639] h-10  w-60 p-1 text-red-600 text-xl font-bold text-center" onPress={()=> this.logOut()}>Log out</StyledText>
       </StyledLinearGradient>
     );
   }

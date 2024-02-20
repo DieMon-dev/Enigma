@@ -34,7 +34,7 @@ export default class StarterPage extends React.Component<StarterPageProps, Start
     render() {
       return (
         <StyledLinearGradient className="flex flex-1 w-full h-full items-center justify-center "
-        colors={["#000000", "#6e7d98" ,"#9ea6b8"]} onTouchStart={()=>  this.props.navigation.navigate("Home")}>
+        colors={["#1e2024", "#4d5264" ,"#6e7791"]} onTouchStart={()=>  this.props.navigation.navigate("Home")}>
         <StyledView className="w-full mb-32">
           <EnigmaMainLogo></EnigmaMainLogo>
         </StyledView>
