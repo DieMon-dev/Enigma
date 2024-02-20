@@ -71,7 +71,7 @@ export default class UserChatsList extends React.Component<UserChatsListProps, U
   render(){  
     return (
         <StyledScrollView className="w-82 h-full p-2 m-2">
-            {this.state.optionList.map((element: any, index:number)=>{
+            {this.state.optionList.length !== 0 ? this.state.optionList.map((element: any, index:number)=>{
                 return(
                     <StyledView className='flex flex-row w-full h-20 gap-x-1' key={index}>
                         <StyledImage className='w-12 h-12 border-r-8 rounded-[31px] mr-4' source={require('../../assets/4.jpg')}/>
@@ -82,7 +82,7 @@ export default class UserChatsList extends React.Component<UserChatsListProps, U
                         <StyledText className='mt-2 left-4' onPress={()=>this.handleDeleteChat(element)}><StyledIcon className='color-white' icon={faEllipsisVertical as IconProp} /></StyledText>
                     </StyledView>
                 )
-            })}  
+            }): <StyledText className='text-white text-center text-xl'>No existing chats was found...</StyledText>}  
         </StyledScrollView>  
     );
   }

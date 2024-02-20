@@ -8,6 +8,7 @@ import remoteUserStore from '../../stores/Remote_User_Store';
 import EnigmaTopLogo from '../logo/EnigmaTop';
 import { observer } from 'mobx-react';
 import { StackActions } from '@react-navigation/native';
+import chatStore from '../../stores/Chat_Store';
 
 const StyledView = styled(View)
 const StyledText = styled(Text)
@@ -78,6 +79,8 @@ export default class SettingsPage extends React.Component<SettingsProps, Setting
             remoteUserStore.setRemoteUser("", "", "")
             userStore.setUser("","","")
             userStore.setLogOut(false)
+            chatStore.setChatId("")
+            chatStore.setMessageHistory([])
             this.props.navigation.dispatch(StackActions.popToTop())
           }
         },
