@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import {faSearch} from '@fortawesome/free-solid-svg-icons'
 import EnigmaAPI from '../../api/SignInUpAPI';
-import remoteUserStore from '../../stores/Remote_User_Store';
 import DropdownSelect from '../locallibs/react-native-input-select';
 import { observer } from "mobx-react";
 import userStore from '../../stores/user_store';
@@ -36,25 +35,25 @@ export default class UserFindSelect extends React.Component<UserFindSelectProps,
   }
 
   private api = new EnigmaAPI
-  private remoteUser = remoteUserStore.getRemoteUser()
-
 
   handleChange = (selectedUser: any) => {
     this.setState({selectedUser})
     const user = userStore.getUser();
-    this.api.CheckUserChat(user.userId, this.remoteUser.userId).then((response)=>{
+    this.api.CheckUserChat(user.userId, selectedUser).then((response)=>{
       if(response === true){
-        this.api.ChatsList(userStore.getUser().userId).then(response =>{
+        this.api.ChatsList(user.userId).then(response =>{
           response.map((element: any)=>{
-            if(element.chatId.includes(this.remoteUser.userId)){
+            if(element.chatId.includes(selectedUser)){
               chatStore.setChatId(element.chatId)
+              chatStore.setNameOfChat(element.chatTitle)
               this.props.navigation.navigate("Chat")
             }
           })
         })
       }else{
-        this.api.CreateChat(user.userId, this.remoteUser.userId).then((response)=>{
+        this.api.CreateChat(user.userId, selectedUser).then((response)=>{
         chatStore.setChatId(response.chatId)
+        chatStore.setNameOfChat(response.chatTitle)
         this.props.navigation.navigate("Chat")})
       }
     }

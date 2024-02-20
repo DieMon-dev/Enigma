@@ -18,12 +18,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import com.DieMoon.EnigmaChat.services.UserService;
+
 
 @Service
 public class ChatService {
     @Autowired
     private PivotChatService PivotChatService;
     private Firestore firestore;
+    private static final UserService userService = new UserService();
 
     public boolean ifChatWithUserExists(String userIdLocal, String userIdRemote){
         List<String> pivotLocalUserChats = new ArrayList<>(); // Initialize the list
@@ -43,7 +46,7 @@ public class ChatService {
         return false;
 
     }
-    //TODO: create private chat
+
     public Chat chatCreate(String userIdLocal, String userIdRemote){
 
         firestore = DatabaseInitialize.getInstance().getFirestore();
@@ -58,6 +61,7 @@ public class ChatService {
         firestore.collection("chats").document(newChat.getChatId()).set(newChat);
         PivotChatService.createDependence(newChat.getChatId(), userIdLocal);
         PivotChatService.createDependence(newChat.getChatId(), userIdRemote);
+        newChat.setChatTitle(userService.getUserById(userIdRemote).getUserName());
         return newChat;
     }
 
@@ -89,15 +93,23 @@ public class ChatService {
         for (String documentChat : PivotChatService.getUsersChatIdsByUserId(userIdPivot)) {
             ApiFuture<QuerySnapshot> querySnapshot = chatsCollection.whereEqualTo("chatId", documentChat).get();
             try {
+
                 for (QueryDocumentSnapshot document : querySnapshot.get().getDocuments()) {
                     Chat chat = document.toObject(Chat.class);
+                    List<String> chatUsers = PivotChatService.getUsersIdsByChatId(chat.getChatId());
+
+                    for (String chatUser : chatUsers) {
+                        if (!chatUser.equals(userIdPivot)) {
+                            chat.setChatTitle(userService.getUserById(chatUser).getUserName());
+                            System.out.println(chat);
+                        }
+                    }
                     chats.add(chat);
                 }
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
         }
-
         return chats;
     }
 

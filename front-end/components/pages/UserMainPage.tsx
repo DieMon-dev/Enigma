@@ -52,7 +52,7 @@ export default class UserMainPage extends React.Component<UserMainPageProps, Use
     return (
       <StyledLinearGradient className="flex flex-1 w-full h-full items-center justify-center "
       colors={["#1e2024", "#4d5264" ,"#6e7791"]} start={[0.5, 0.01]}>
-        {this.state.isBottom ? <EnigmaPageLogo></EnigmaPageLogo> :<StyledText className='relative bottom-[339.5px]'><EnigmaTopLogo> </EnigmaTopLogo></StyledText>}
+        {this.state.isBottom ? <EnigmaPageLogo></EnigmaPageLogo> :<StyledText className='relative bottom-[339.5px]'><EnigmaTopLogo></EnigmaTopLogo></StyledText>}
         <SwipeUpDown		
 	      itemMini={<UserFindSelect navigation={this.props.navigation}></UserFindSelect>} // Pass props component when collapsed
 	      itemFull={<UserChatsList navigation={this.props.navigation}></UserChatsList>} // Pass props component when show full

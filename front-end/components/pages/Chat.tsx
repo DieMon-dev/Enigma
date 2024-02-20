@@ -42,28 +42,23 @@ export default class ChatPage extends React.Component<ChatPageProps, ChatPageInt
   private api = new EnigmaAPI();
   private user = userStore.getUser().userId;
   private chatId = chatStore.getChatId();
-  private interval: any
+  private nameOfChat = chatStore.getNameOfChat();
   private navigator = this.props.navigation
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    this.interval = setInterval(() => {
       this.api.ChatMessages(this.chatId).
       then((history)=>{chatStore.setMessageHistory(history)}).
-      then(()=>{this.setState({historyIsReady:true})})   
-    }, 500);
-    
+      then(()=>{this.setState({historyIsReady:true})})     
   }
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
-
+ 
   handleBackButton = () => {
     this.navigator.navigate("UserPage")
     return true
   }
 
   handleSendButton = () => {
+    if(this.state.messageToSend.length !== 0){
     this.api.SendMessage(this.chatId, userStore.getUser().userId, this.state.messageToSend).
       then((response)=>{
         if(response === true){
@@ -75,6 +70,7 @@ export default class ChatPage extends React.Component<ChatPageProps, ChatPageInt
           alert("Trouble with sending message")
         }
       })
+    }
   }
 
   handleMessage = (message: string) => {
@@ -91,8 +87,9 @@ export default class ChatPage extends React.Component<ChatPageProps, ChatPageInt
       >
         <StyledView className="w-full flex flex-col items-center justify-center">
           <StyledText className='relative bottom-16 mb-1'>
-            <EnigmaTopLogo> </EnigmaTopLogo>
+            <EnigmaTopLogo nameOfChat={this.nameOfChat}></EnigmaTopLogo>
           </StyledText>
+          <StyledView className="items-start justify-start mr-72 bottom-16"><StyledText className="text-3xl text-white" onPress={()=> this.props.navigation.navigate("Home")}>←</StyledText></StyledView>
           <StyledView className="w-full h-2/3 bottom-16 mb-3">
           <FlatList
               inverted={true}
