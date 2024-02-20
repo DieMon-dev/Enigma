@@ -42,6 +42,7 @@ export default class ChatPage extends React.Component<ChatPageProps, ChatPageInt
   private api = new EnigmaAPI();
   private user = userStore.getUser().userId;
   private chatId = chatStore.getChatId();
+  private nameOfChat = chatStore.getNameOfChat();
   private navigator = this.props.navigation
 
   componentDidMount() {
@@ -86,7 +87,7 @@ export default class ChatPage extends React.Component<ChatPageProps, ChatPageInt
       >
         <StyledView className="w-full flex flex-col items-center justify-center">
           <StyledText className='relative bottom-16 mb-1'>
-            <EnigmaTopLogo> </EnigmaTopLogo>
+            <EnigmaTopLogo nameOfChat={this.nameOfChat}></EnigmaTopLogo>
           </StyledText>
           <StyledView className="w-full h-2/3 bottom-16 mb-3">
           <FlatList

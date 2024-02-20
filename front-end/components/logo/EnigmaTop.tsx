@@ -5,7 +5,11 @@ import { styled } from 'nativewind';
 const StyledView = styled(View)
 const StyledText = styled(Text)
 
-export default class EnigmaTopLogo extends React.Component<any, any>{
+interface TopLogoProps {
+  nameOfChat?: string
+}
+
+export default class EnigmaTopLogo extends React.Component<TopLogoProps, any>{
   constructor(props: any) {
     super(props);
   }
@@ -23,9 +27,15 @@ export default class EnigmaTopLogo extends React.Component<any, any>{
             </StyledView>
         </StyledView>
         <StyledView className="absolute">
-            <StyledText className="text-white text-4xl font-thin tracking-widest text-center mt-28">
-                <StyledText className="text-white text-4xl font-extrabold tracking-widest">E</StyledText>NIGMA
+            {this.props.nameOfChat ? 
+            <StyledText className="text-white text-2xl font-bold tracking-widest text-center mt-28">
+              {this.props.nameOfChat} 
             </StyledText>
+            :
+             <StyledText className="text-white text-4xl font-thin tracking-widest text-center mt-28">
+              <StyledText className="text-white text-4xl font-extrabold tracking-widest">E</StyledText>NIGMA 
+            </StyledText>
+            }
         </StyledView>
     </StyledView> 
       )}      
