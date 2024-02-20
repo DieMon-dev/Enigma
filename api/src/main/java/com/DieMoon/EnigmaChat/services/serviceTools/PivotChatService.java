@@ -70,7 +70,26 @@ public class PivotChatService {
         }
         return pivotChats;
     }
+    public List<String> getUsersIdsByChatId(String chatIdPivot) {
+        firestore = DatabaseInitialize.getInstance().getFirestore();
+        List<String> pivotChats = new ArrayList<>(); // Initialize the list
 
+
+        CollectionReference usersCollection = firestore.collection("pivotChats");
+        Query query = usersCollection.whereEqualTo("chatIdPivot", chatIdPivot);
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+
+        try {
+            for (QueryDocumentSnapshot document : querySnapshot.get()) {
+
+                PivotChats pivotChat = document.toObject(PivotChats.class);
+                pivotChats.add(pivotChat.getUserIdPivot());
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return pivotChats;
+    }
     public List<String> getDocumentIdsByUserId(String userIdPivot) {
         firestore = DatabaseInitialize.getInstance().getFirestore();
         List<String> pivotChats = new ArrayList<>(); // Initialize the list
