@@ -64,6 +64,7 @@ export default class ChatPage extends React.Component<ChatPageProps, ChatPageInt
   }
 
   handleSendButton = () => {
+    if(this.state.messageToSend.length !== 0){
     this.api.SendMessage(this.chatId, userStore.getUser().userId, this.state.messageToSend).
       then((response)=>{
         if(response === true){
@@ -75,6 +76,7 @@ export default class ChatPage extends React.Component<ChatPageProps, ChatPageInt
           alert("Trouble with sending message")
         }
       })
+    }
   }
 
   handleMessage = (message: string) => {

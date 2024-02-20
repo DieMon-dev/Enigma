@@ -3,7 +3,7 @@ import userStore from "../stores/user_store"
 
 export default class  EnigmaAPI{
 
-    private url = "https://slimy-monkeys-thank.loca.lt"
+    private url = "https://true-pugs-help.loca.lt"
 
     private url_login = this.url + "/api/users/check/userPassword/"
     private url_login_register = this.url + "/api/users/check/userLogin/"
