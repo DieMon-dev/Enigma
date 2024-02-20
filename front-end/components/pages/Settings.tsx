@@ -4,6 +4,7 @@ import { styled } from 'nativewind';
 import { LinearGradient } from "expo-linear-gradient";
 import EnigmaAPI from '../../api/SignInUpAPI';
 import userStore from '../../stores/user_store';
+import remoteUserStore from '../../stores/Remote_User_Store';
 import EnigmaTopLogo from '../logo/EnigmaTop';
 import { observer } from 'mobx-react';
 import { StackActions } from '@react-navigation/native';
@@ -74,6 +75,9 @@ export default class SettingsPage extends React.Component<SettingsProps, Setting
         {
           text: 'Sure',
           onPress: () => {
+            remoteUserStore.setRemoteUser("", "", "")
+            userStore.setUser("","","")
+            userStore.setLogOut(false)
             this.props.navigation.dispatch(StackActions.popToTop())
           }
         },

@@ -43,7 +43,7 @@ const DropdownFlatList = ({
 
   useEffect(()=>{
     const disposer = autorun(() => {
-      setOption([{value: remoteUserStore.getRemoteUser().userLogin, label: remoteUserStore.getRemoteUser().userName}])
+      setOption([{value: remoteUserStore.getRemoteUser().userId, label: remoteUserStore.getRemoteUser().userName}])
     });
     return () => disposer();
   }, [remoteUserStore.getRemoteUser().userName])

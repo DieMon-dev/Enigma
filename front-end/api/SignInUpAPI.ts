@@ -3,11 +3,11 @@ import userStore from "../stores/user_store"
 
 export default class  EnigmaAPI{
 
-    private url = "https://true-pugs-help.loca.lt"
+    private url = "https://metal-ways-win.loca.lt"
 
     private url_login = this.url + "/api/users/check/userPassword/"
     private url_login_register = this.url + "/api/users/check/userLogin/"
-    private url_password = this.url + "/api/users"
+    private url_register = this.url + "/api/users"
     private url_update = this.url + "/api/users/update"
     private url_chek_old_password = this.url + "/api/users/check/oldPwd/"
     private url_find_user_by_login = this.url + "/api/users/getByLogin/"
@@ -41,8 +41,9 @@ export default class  EnigmaAPI{
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({userLogin: login, userPassword: password, userName: nickname})
     };
-    const result = fetch(this.url_password,  requestOptions).then(response => {              
-        return response.json()}).then(response => {userStore.setUser(response.userId, response.userLogin, response.userName); return response})
+    const result = fetch(this.url_register,  requestOptions).then(response => {              
+        return response.json()})
+        .then(response => {userStore.setUser(response.userId, response.userLogin, response.userName); return response})
     return result
     }
 
@@ -53,13 +54,15 @@ export default class  EnigmaAPI{
             body: JSON.stringify(user)
         };
         const result = fetch(this.url_update,  requestOptions).then(response => {              
-            return response.json()}).then(response => {userStore.setUser(response.userId, response.userLogin, response.userName); return  response ? true: false})
+            return response.json()})
+            .then(response => {userStore.setUser(response.userId, response.userLogin, response.userName); return  response ? true: false})
         return result
     }
 
     async CheckPassword(userId: string, password: string): Promise<Boolean>{
         const result = fetch(this.url_chek_old_password + userId + "/" + password).then(response => {              
-            return response.json()}).then(response => {return response})
+            return response.json()})
+            .then(response => {return response})
         return result
     
     }
@@ -90,20 +93,23 @@ export default class  EnigmaAPI{
 
       async CheckUserChat(userId: string, remoteUserId: string): Promise<Boolean>{
         const result = fetch(this.url_check_user_chat + userId + "/" +  remoteUserId).then(response => {              
-            return response.json()}).then(response => {return response})
+            return response.json()})
+            .then(response => {return response})
         return result
     
     }
 
     ChatsList(userId: string): Promise<any>{
         const result = fetch(this.url_user_chats_list + userId).then(response => {              
-            return response.json()}).then(response => {return response})
+            return response.json()})
+            .then(response => {return response})
         return result
     }
  
     ChatMessages(chatId: string): Promise<Array<Object>>{
         const result = fetch(this.url_chat_messages + chatId).then(response => {              
-            return response.json()}).then(response => {return response})
+            return response.json()})
+            .then(response => {return response})
         return result
      
     }
@@ -114,8 +120,10 @@ export default class  EnigmaAPI{
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({messageChatId: messageChatId, messageSenderId: messageSenderId,  messageContent: messageContent})
         };
+        console.log({messageChatId: messageChatId, messageSenderId: messageSenderId,  messageContent: messageContent})
         const result = fetch(this.url_send_message,  requestOptions).then(response => {              
-            return response.json()}).then(response => {console.log(response);return response})
+            return response.json()})
+            .then(response => {console.log(response);return response})
         return result
     }
 
@@ -131,7 +139,8 @@ export default class  EnigmaAPI{
 
     async CreateChat(userId: string, remoteUserId: string): Promise<any>{
         const result = fetch(this.url_create_chat + userId + "/" +  remoteUserId).then(response => {              
-            return response.json()}).then(response => {return response})
+            return response.json()})
+            .then(response => {return response})
         return result
     
     }

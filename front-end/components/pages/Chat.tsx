@@ -42,22 +42,15 @@ export default class ChatPage extends React.Component<ChatPageProps, ChatPageInt
   private api = new EnigmaAPI();
   private user = userStore.getUser().userId;
   private chatId = chatStore.getChatId();
-  private interval: any
   private navigator = this.props.navigation
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    this.interval = setInterval(() => {
       this.api.ChatMessages(this.chatId).
       then((history)=>{chatStore.setMessageHistory(history)}).
-      then(()=>{this.setState({historyIsReady:true})})   
-    }, 500);
-    
+      then(()=>{this.setState({historyIsReady:true})})     
   }
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
-
+ 
   handleBackButton = () => {
     this.navigator.navigate("UserPage")
     return true
