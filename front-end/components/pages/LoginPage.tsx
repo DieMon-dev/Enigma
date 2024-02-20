@@ -59,7 +59,7 @@ export default class LoginPage extends React.Component<LoginPageProps, LoginPage
   render(){  
     return (
       <StyledLinearGradient className="flex flex-1 w-full h-full items-center justify-center "
-      colors={["#20242c", "#6e7d98" ,"#9ea6b8"]} start={[0.5, 0.01]}>
+      colors={["#22242a", "#50576c" ,"#7684a1"]} start={[0.5, 0.01]}>
         <StyledView className="flex items-start justify-start mr-80 mt-12 h-10"><StyledText className="text-3xl text-white" onPress={()=> this.props.navigation.navigate("Home")}>←</StyledText></StyledView>
         <EnigmaMainLogo></EnigmaMainLogo>
         <StyledView className="flex flex-col w-full gap-y-2 m-4 p-10  w-72">
@@ -70,7 +70,7 @@ export default class LoginPage extends React.Component<LoginPageProps, LoginPage
               onChangeText={this.handleLogin}
               value={this.state.number}
               keyboardType="number-pad"
-              className="border-b-2 border-solid h-8 w-56 bg-slate-500 text-white text-center"
+              className="border-b-2 border-solid h-8 w-56 bg-[#3e4250] opacity-80 text-white text-center"
               />
           </StyledView>
           <StyledView className="items-center justify-center">
@@ -80,11 +80,11 @@ export default class LoginPage extends React.Component<LoginPageProps, LoginPage
               onChangeText={this.handlePassword}
               value={this.state.password}
               secureTextEntry={true}
-              className="border-b-2 border-solid h-8 w-56 bg-slate-500 text-white text-center"
+              className="border-b-2 border-solid h-8 w-56 bg-[#3e4250] opacity-80 text-white text-center"
             />
           </StyledView>
         </StyledView>
-        <StyledText className="rounded-full bg-[#20242cc7] h-10 w-56 p-1 mb-32 text-white text-xl font-bold text-center" onPress={()=> this.loginCheckOut()}>Log in</StyledText>
+        <StyledText className="rounded-full border border-solid bg-[#323639] h-10 w-56 p-1 mb-32 text-white text-xl font-bold text-center" onPress={()=> this.loginCheckOut()}>Log in</StyledText>
       </StyledLinearGradient>
     );
   }

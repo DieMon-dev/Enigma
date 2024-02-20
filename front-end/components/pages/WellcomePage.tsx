@@ -37,7 +37,7 @@ export default class WellcomePage extends React.Component<WellcomePageProps, Wel
 
       return (
         <StyledLinearGradient className="flex flex-1 w-full h-full items-center justify-center "
-        colors={["#20242c", "#6e7d98" ,"#9ea6b8"]} start={[0.5, 0.01]}>
+        colors={["#0e0f14", "#484e5e" ,"#78829e"]} start={[0.5, 0.01]}>
           <EnigmaMainLogo></EnigmaMainLogo>
           <StyledView className="flex flex-row mr-32 mt-6">
             <StyledText className="text-4xl font-thin text-white">
@@ -51,7 +51,7 @@ export default class WellcomePage extends React.Component<WellcomePageProps, Wel
               </StyledText>
             </StyledView>
           <StyledView className="flex flex-col  m-2 p-10 h-64 w-42">  
-          <StyledText className="rounded-full bg-[#20242cc7] h-10 p-1 text-white text-xl font-bold text-center" onPress={()=> this.props.navigation.navigate("SingUp")}>Sign up</StyledText>
+          <StyledText className="rounded-full border border-solid bg-[#323639] h-10 p-1 text-white text-xl font-bold text-center" onPress={()=> this.props.navigation.navigate("SingUp")}>Sign up</StyledText>
           <StyledView className="justify-center items-center text-white mt-4">  
             <StyledText className="text-lg text-white">Existing account?</StyledText>
             <StyledText className="text-lg text-white" onPress={()=> this.props.navigation.navigate("SingIn")}>Log in</StyledText>  

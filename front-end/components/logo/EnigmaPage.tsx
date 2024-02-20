@@ -14,11 +14,11 @@ export default class EnigmaPageLogo extends React.Component<any, any>{
     render() {
 
       return (
-    <StyledView className='flex mb-32 items-center justify-center'> 
-        <StyledView className="bg-[#05050680] rounded-full w-48 h-48 items-center justify-center">
-            <StyledView className="bg-[#050506d1] rounded-full w-36 h-36 opacity-50 items-center justify-center"> 
-                <StyledView className="bg-[#050506d1] rounded-full w-26 h-26 items-center opacity-50 justify-center">
-                    <StyledView className="bg-black rounded-full w-16 h-16 items-center justify-center">
+      <StyledView className='flex mt-24 items-center justify-center'> 
+        <StyledView className="bg-[#14171C] rounded-full w-48 h-48 opacity-95 items-center justify-center">
+            <StyledView className="bg-[#0B0C0E] rounded-full w-36 h-36 opacity-95 items-center justify-center"> 
+                <StyledView className="bg-[#060607] rounded-full w-26 h-26 items-center opacity-95 justify-center">
+                    <StyledView className="bg-[#040405] rounded-full w-16 h-16 opacity-95 items-center justify-center">
                     </StyledView>
                 </StyledView>
             </StyledView>

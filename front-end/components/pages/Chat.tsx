@@ -88,7 +88,7 @@ export default class ChatPage extends React.Component<ChatPageProps, ChatPageInt
     return (
       <StyledLinearGradient
         className="flex flex-1 w-full h-full items-center justify-center "
-        colors={['#20242c', '#6e7d98', '#9ea6b8']}
+        colors={["#1e2024", "#4d5264" ,"#6e7791"]}
         start={[0.5, 0.01]}
       >
         <StyledView className="w-full flex flex-col items-center justify-center">

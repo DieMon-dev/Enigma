@@ -13,11 +13,11 @@ export default class EnigmaButtonLogo extends React.Component<any, any>{
     render() {
 
       return (
-    <StyledView className='flex items-center justify-center'> 
-        <StyledView className="bg-[#05050680] rounded-full w-16 h-16 items-center justify-center">
-            <StyledView className="bg-[#050506d1] rounded-full w-12 h-12 opacity-40 items-center justify-center"> 
-                <StyledView className="bg-[#050506d1] rounded-full w-8 h-8 items-center opacity-100 justify-center">
-                    <StyledView className="bg-black rounded-full w-4 h-4 items-center justify-center">
+        <StyledView className='flex mt-24 items-center justify-center'> 
+        <StyledView className="bg-[#14171C] rounded-full w-16 h-16 opacity-95 items-center justify-center">
+            <StyledView className="bg-[#0B0C0E] rounded-full w-12 h-12 opacity-95 items-center justify-center"> 
+                <StyledView className="bg-[#060607] rounded-full w-8 h-8 items-center opacity-95 justify-center">
+                    <StyledView className="bg-[#040405] rounded-full w-4 h-4 opacity-95 items-center justify-center">
                     </StyledView>
                 </StyledView>
             </StyledView>

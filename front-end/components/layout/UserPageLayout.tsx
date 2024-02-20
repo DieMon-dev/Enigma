@@ -33,7 +33,7 @@ export default class UserPageLayout extends React.Component<UserPageLayoutProps,
             <Tab.Navigator
                  activeColor="#FFFFFF"
                  inactiveColor="#797C7B"
-                 barStyle={{ backgroundColor: '#242E2E', paddingBottom: 2}}
+                 barStyle={{ backgroundColor: '#121414', paddingBottom: 2}}
             >
                  <Tab.Screen
                     name="Chats"

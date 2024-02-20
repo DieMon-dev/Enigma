@@ -96,7 +96,7 @@ export default class UserFindSelect extends React.Component<UserFindSelectProps,
                     padding: 10,
                     borderTopRightRadius: 40,
                     borderTopLeftRadius: 40,
-                    backgroundColor: '#242E2E',
+                    backgroundColor: '#121414',
                   }}
                   checkboxComponentStyles={{
                     checkboxStyle: {
