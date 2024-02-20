@@ -89,6 +89,7 @@ export default class ChatPage extends React.Component<ChatPageProps, ChatPageInt
           <StyledText className='relative bottom-16 mb-1'>
             <EnigmaTopLogo nameOfChat={this.nameOfChat}></EnigmaTopLogo>
           </StyledText>
+          <StyledView className="items-start justify-start mr-72 bottom-16"><StyledText className="text-3xl text-white" onPress={()=> this.props.navigation.navigate("Home")}>←</StyledText></StyledView>
           <StyledView className="w-full h-2/3 bottom-16 mb-3">
           <FlatList
               inverted={true}
