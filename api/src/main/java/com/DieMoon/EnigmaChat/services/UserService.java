@@ -22,7 +22,13 @@ public class UserService {
         // Create a new user in Firestore
         String userId = IdGeneration.generateUserId();
         user.setUserId(userId);
+        ApiFuture<WriteResult> result = firestore.collection("users").document(userId).set(user);
 
+        try {
+            System.out.println("Update time : " + result.get().getUpdateTime());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
 
         return user;
     }
