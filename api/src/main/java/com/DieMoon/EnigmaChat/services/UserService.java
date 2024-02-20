@@ -17,6 +17,7 @@ public class UserService {
     // Create an instance of databaseInitialize
     private Firestore firestore;
 
+
     public User createUser(User user) {
         firestore = DatabaseInitialize.getInstance().getFirestore();
         // Create a new user in Firestore
