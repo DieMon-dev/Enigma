@@ -20,6 +20,10 @@ public class MessageController {
         return messageService.sendMessage(newMessage);
     }
 
+    @GetMapping("/test/get/{userId}/{messageId}")
+    public String formatMessage(@PathVariable String userId, @PathVariable String messageId){
+        return messageService.formatLastMessage(userId, messageId);
+    }
     @GetMapping("/for/{chatId}")
     public List<Message> getMessagesByChatId(@PathVariable String chatId){
         return messageService.getMessagesByChatId(chatId);

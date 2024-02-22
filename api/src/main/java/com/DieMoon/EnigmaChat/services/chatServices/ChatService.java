@@ -27,6 +27,7 @@ public class ChatService {
     private PivotChatService PivotChatService;
     private Firestore firestore;
     private static final UserService userService = new UserService();
+    private static final MessageService messageService = new MessageService();
 
     public boolean ifChatWithUserExists(String userIdLocal, String userIdRemote){
         List<String> pivotLocalUserChats = new ArrayList<>(); // Initialize the list
@@ -65,6 +66,19 @@ public class ChatService {
         return newChat;
     }
 
+    public boolean updateLastMsg(String msgId, String chatId){
+        firestore = DatabaseInitialize.getInstance().getFirestore();
+        try {
+            firestore.collection("chats").document(chatId).update("chatLastMsg", msgId);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+
     public List<Chat> getAllChats() {
         firestore = DatabaseInitialize.getInstance().getFirestore();
         List<Chat> chats = new ArrayList<>();
@@ -101,9 +115,9 @@ public class ChatService {
                     for (String chatUser : chatUsers) {
                         if (!chatUser.equals(userIdPivot)) {
                             chat.setChatTitle(userService.getUserById(chatUser).getUserName());
-                            System.out.println(chat);
                         }
                     }
+                    chat.setChatLastMsg(messageService.formatLastMessage(userIdPivot, chat.getChatLastMsg()));
                     chats.add(chat);
                 }
             } catch (InterruptedException | ExecutionException e) {
