@@ -42,7 +42,7 @@ export default class UserChatsList extends React.Component<UserChatsListProps, U
   private api = new EnigmaAPI()
 
   componentDidMount() {
-    this.api.ChatsList(userStore.getUser().userId).then(response =>{
+    this.api.getChatsList(userStore.getUser().userId).then(response =>{
       this.setState({optionList: response})
     })
   }
@@ -57,8 +57,8 @@ export default class UserChatsList extends React.Component<UserChatsListProps, U
     Alert.alert('Do you want to delete this chat ? ', 'Chat will dissapear for bouth users', [
       {
         text: 'Sure',
-        onPress: () => {this.api.DeleteChat(element.chatId).then(()=>{
-          this.api.ChatsList(userStore.getUser().userId).then(response =>{
+        onPress: () => {this.api.deleteChat(element.chatId).then(()=>{
+          this.api.getChatsList(userStore.getUser().userId).then(response =>{
             this.setState({optionList: response})}).then(()=>{this.setState({chatListRerender: !this.state.chatListRerender})})
           })},
       },

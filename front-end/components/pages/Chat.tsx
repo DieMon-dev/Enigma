@@ -47,7 +47,7 @@ export default class ChatPage extends React.Component<ChatPageProps, ChatPageInt
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-      this.api.ChatMessages(this.chatId).
+      this.api.getChatMessages(this.chatId).
       then((history)=>{chatStore.setMessageHistory(history)}).
       then(()=>{this.setState({historyIsReady:true})})     
   }
@@ -59,11 +59,11 @@ export default class ChatPage extends React.Component<ChatPageProps, ChatPageInt
 
   handleSendButton = () => {
     if(this.state.messageToSend.length !== 0){
-    this.api.SendMessage(this.chatId, userStore.getUser().userId, this.state.messageToSend).
+    this.api.sendMessage(this.chatId, userStore.getUser().userId, this.state.messageToSend).
       then((response)=>{
         if(response === true){
           this.setState({messageToSend: ""})
-          this.api.ChatMessages(this.chatId).
+          this.api.getChatMessages(this.chatId).
           then((history)=>{chatStore.setMessageHistory(history)})
           .then(()=>{this.setState({historyIsReady:true})})
         }else{

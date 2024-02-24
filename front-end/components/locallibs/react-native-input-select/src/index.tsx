@@ -360,7 +360,7 @@ export const DropdownSelect: React.FC<DropdownProps> = ({
                   onSubmitEditing={(event: any) => {
                     if(event.nativeEvent.text.length === 9 && /^\d+$/.test(event.nativeEvent.text)){
                     const element = new EnigmaApi()
-                    element.FindUserByLogin(event.nativeEvent.text).then(()=>setRerender(!rerender))
+                    element.findUserByLogin(event.nativeEvent.text).then(()=>setRerender(!rerender))
                     }else{
                       Alert.alert('Phone number must contain 9 digits and only digits', 'Please, try again', [
                         {

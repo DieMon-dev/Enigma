@@ -39,9 +39,9 @@ export default class UserFindSelect extends React.Component<UserFindSelectProps,
   handleChange = (selectedUser: any) => {
     this.setState({selectedUser})
     const user = userStore.getUser();
-    this.api.CheckUserChat(user.userId, selectedUser).then((response)=>{
+    this.api.checkUserChat(user.userId, selectedUser).then((response)=>{
       if(response === true){
-        this.api.ChatsList(user.userId).then(response =>{
+        this.api.getChatsList(user.userId).then(response =>{
           response.map((element: any)=>{
             if(element.chatId.includes(selectedUser)){
               chatStore.setChatId(element.chatId)
@@ -51,7 +51,7 @@ export default class UserFindSelect extends React.Component<UserFindSelectProps,
           })
         })
       }else{
-        this.api.CreateChat(user.userId, selectedUser).then((response)=>{
+        this.api.createChat(user.userId, selectedUser).then((response)=>{
         chatStore.setChatId(response.chatId)
         chatStore.setNameOfChat(response.chatTitle)
         this.props.navigation.navigate("Chat")})

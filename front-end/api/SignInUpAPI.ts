@@ -20,7 +20,7 @@ export default class  EnigmaAPI{
     private url_create_chat = this.url + "/api/chats/create/"
     
 
-    async Login(login: string, password: string): Promise<boolean> {
+    async doLogin(login: string, password: string): Promise<boolean> {
         const result = fetch(this.url_login + login + "/" + password).then(response => {             
             return response.json()}).then(response => {console.log(response);if(response.userId){userStore.setUser(response.userId, response.userLogin, response.userName);console.log(response);
             return true}else{return false}})
@@ -28,14 +28,14 @@ export default class  EnigmaAPI{
 
    }
 
-   async Login_RegisterCheck(login: string): Promise<boolean> {
+   async doLoginRegisterCheck(login: string): Promise<boolean> {
     const result = fetch(this.url_login_register + login).then(response => {              
         return response.json()}).then(response => {return response})
     return result
 
 }
 
-   async Register(login: string, password: string, nickname: string): Promise<boolean>{
+   async doRegister(login: string, password: string, nickname: string): Promise<boolean>{
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -47,7 +47,7 @@ export default class  EnigmaAPI{
     return result
     }
 
-    async UpdateProfile(user: any): Promise<Boolean>{
+    async updateProfile(user: any): Promise<Boolean>{
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -59,7 +59,7 @@ export default class  EnigmaAPI{
         return result
     }
 
-    async CheckPassword(userId: string, password: string): Promise<Boolean>{
+    async checkPassword(userId: string, password: string): Promise<Boolean>{
         const result = fetch(this.url_chek_old_password + userId + "/" + password).then(response => {              
             return response.json()})
             .then(response => {return response})
@@ -67,7 +67,7 @@ export default class  EnigmaAPI{
     
     }
 
-    async FindUserByLogin(userLogin: string) {
+    async findUserByLogin(userLogin: string) {
         try {
           const response = await fetch(this.url_find_user_by_login + userLogin);
       
@@ -91,7 +91,7 @@ export default class  EnigmaAPI{
       }
       
 
-      async CheckUserChat(userId: string, remoteUserId: string): Promise<Boolean>{
+      async checkUserChat(userId: string, remoteUserId: string): Promise<Boolean>{
         const result = fetch(this.url_check_user_chat + userId + "/" +  remoteUserId).then(response => {              
             return response.json()})
             .then(response => {return response})
@@ -99,14 +99,14 @@ export default class  EnigmaAPI{
     
     }
 
-    ChatsList(userId: string): Promise<any>{
+    getChatsList(userId: string): Promise<any>{
         const result = fetch(this.url_user_chats_list + userId).then(response => {              
             return response.json()})
             .then(response => {return response})
         return result
     }
  
-    ChatMessages(chatId: string): Promise<Array<Object>>{
+    getChatMessages(chatId: string): Promise<Array<Object>>{
         const result = fetch(this.url_chat_messages + chatId).then(response => {              
             return response.json()})
             .then(response => {return response})
@@ -114,7 +114,7 @@ export default class  EnigmaAPI{
      
     }
 
-    async SendMessage(messageChatId: string, messageSenderId: string, messageContent: string): Promise<Boolean>{
+    async sendMessage(messageChatId: string, messageSenderId: string, messageContent: string): Promise<Boolean>{
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -127,17 +127,17 @@ export default class  EnigmaAPI{
         return result
     }
 
-    async DeleteMessage(messageId: string): Promise<boolean>{
+    async deleteMessage(messageId: string): Promise<boolean>{
         fetch(this.url_delete_message + messageId)
         return true
     }
 
-    async DeleteChat(chatId: string): Promise<boolean>{
+    async deleteChat(chatId: string): Promise<boolean>{
       fetch(this.url_delete_chat + chatId)
         return true
     }
 
-    async CreateChat(userId: string, remoteUserId: string): Promise<any>{
+    async createChat(userId: string, remoteUserId: string): Promise<any>{
         const result = fetch(this.url_create_chat + userId + "/" +  remoteUserId).then(response => {              
             return response.json()})
             .then(response => {return response})

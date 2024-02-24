@@ -50,12 +50,12 @@ export default class RegisterPage extends React.Component<RegisterPageProps, Reg
 
   async register(){
     const element = new EnigmaAPI()
-    await element.Login_RegisterCheck(this.state.number).then(response =>{
+    await element.doLoginRegisterCheck(this.state.number).then(response =>{
       if(response === true){
         alert("This user is already exist, please login")
         this.props.navigation.navigate("SingIn")
       }else{
-        element.Register(this.state.number, this.state.password, this.state.nickName).then(()=>{
+        element.doRegister(this.state.number, this.state.password, this.state.nickName).then(()=>{
         this.props.navigation.navigate("UserPageLayout")})
       }
   

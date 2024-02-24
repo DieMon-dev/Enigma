@@ -45,7 +45,7 @@ export default class LoginPage extends React.Component<LoginPageProps, LoginPage
 
   async loginCheckOut(){
     const element = new EnigmaAPI()
-    await element.Login(this.state.number, this.state.password).then(response =>{
+    await element.doLogin(this.state.number, this.state.password).then(response =>{
       if(response){
         this.props.navigation.navigate("UserPageLayout")
       }else{

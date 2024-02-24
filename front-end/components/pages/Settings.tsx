@@ -92,10 +92,10 @@ export default class SettingsPage extends React.Component<SettingsProps, Setting
   }
 
   async save(){
-        if(this.state.newPassword === this.state.newPassword1 && await this.element.CheckPassword(userStore.getUser().userId, this.state.password)){
+        if(this.state.newPassword === this.state.newPassword1 && await this.element.checkPassword(userStore.getUser().userId, this.state.password)){
             userStore.setUser(userStore.getUser().userId, this.state.number, this.state.nickName)
             userStore.setUserPassword(this.state.newPassword1)
-            await this.element.UpdateProfile(userStore.getUser()).then(response =>{
+            await this.element.updateProfile(userStore.getUser()).then(response =>{
                 if(response){
                     alert("Updates saved")
                 }else{
