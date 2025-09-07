@@ -33,7 +33,7 @@ Main page:
 <img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/ActualLook/chatPage.jpeg" alt="Login page" width="250"/>
 
 <br> Did you change your phone number? Or do you want to change old password? Or you changed your name? Go to the settings and change that! 🖤🖤🖤 <br>
-<img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/ActualLook/settingsPage.jpeg" alt="Settings page" width="250"/>
+<img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/Settings-Screen.png" alt="Settings page" width="250"/>
 
 <br> We will add some new features! Be in touch with us! 🖤🖤🖤 <br>
 <img src="https://github.com/DieMon-dev/Enigma/blob/main/ReadmePhotos/ActualLook/notFinishedPage.jpeg" alt="Settings page" width="250"/>
